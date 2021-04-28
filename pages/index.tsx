@@ -1,9 +1,9 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
-      Hello World.{' '}
+      Hello World.{" "}
       <ul>
         <li>
           <Link href="/about">
@@ -22,5 +22,7 @@ export default function Home() {
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
+
+export default Home;
