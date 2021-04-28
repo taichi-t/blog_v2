@@ -2,8 +2,9 @@
 
 preact + next.js + goober + typescript
 
-# Structure
+# File Structure
 
+<pre>
 .
 ├── README.md
 ├── adapters
@@ -24,7 +25,8 @@ preact + next.js + goober + typescript
 ├── tsconfig.json
 ├── usecases
 └── yarn.lock
+</pre>
 
-# refs
+# Refs
 
 - https://zenn.dev/catnose99/articles/bb943c3dc99d89
