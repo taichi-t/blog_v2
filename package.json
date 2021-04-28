@@ -13,7 +13,8 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "next": "^10.0.0",
+    "@prefresh/next": "^1.4.6",
+    "next": "^10.2.0",
     "preact": "^10.5.5",
     "preact-render-to-string": "^5.1.11",
     "react": "npm:@preact/compat@^0.0.3",
