@@ -30,3 +30,4 @@ preact + next.js + goober + typescript
 # Refs
 
 - https://zenn.dev/catnose99/articles/bb943c3dc99d89
+- https://github.com/prisma-labs/graphql-request

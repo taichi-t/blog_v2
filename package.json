@@ -30,6 +30,8 @@
   "dependencies": {
     "@formatjs/ts-transformer": "^3.3.9",
     "@prefresh/next": "^1.4.6",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
     "next": "^10.2.0",
     "preact": "^10.5.5",
     "preact-render-to-string": "^5.1.11",
