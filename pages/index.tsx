@@ -1,23 +1,29 @@
-import Link from "next/link";
+import Link from 'next/link';
+import { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 
-const Home = () => {
+const Home: FC = () => {
   return (
     <div>
-      Hello World.{" "}
+      <FormattedMessage defaultMessage="hello" />
       <ul>
         <li>
           <Link href="/about">
-            <a>About</a>
+            <FormattedMessage defaultMessage="about" />
           </Link>
         </li>
         <li>
           <Link href="/ssr">
-            <a>SSR</a>
+            <a>
+              <FormattedMessage defaultMessage="SSR" />
+            </a>
           </Link>
         </li>
         <li>
           <Link href="/ssg">
-            <a>SSG</a>
+            <a>
+              <FormattedMessage defaultMessage="SSG" />
+            </a>
           </Link>
         </li>
       </ul>

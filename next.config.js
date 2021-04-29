@@ -1,9 +1,29 @@
-const withPrefresh = require("@prefresh/next");
-const preact = require("preact");
+const withPrefresh = require('@prefresh/next');
+const preact = require('preact');
+const { transform } = require('@formatjs/ts-transformer');
 
 module.exports = withPrefresh({
   webpack(config, options) {
     const { dev, isServer } = options;
+
+       //Install webpack rules
+       config.module.rules.push({
+        test: /\.(tsx|ts)$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            getCustomTransformers() {
+              return {
+                before: [
+                  transform({ overrideIdFn: '[sha512:contenthash:base64:6]' }),
+                ],
+              };
+            },
+          },
+        },
+  
+        exclude: /node_modules/,
+      });
 
     // Move Preact into the framework chunk instead of duplicating in routes:
     const splitChunks = config.optimization && config.optimization.splitChunks;
@@ -21,8 +41,8 @@ module.exports = withPrefresh({
 
     // Install webpack aliases:
     const aliases = config.resolve.alias || (config.resolve.alias = {});
-    aliases.react = aliases["react-dom"] = "preact/compat";
-    aliases["react-ssr-prepass"] = "preact-ssr-prepass";
+    aliases.react = aliases['react-dom'] = 'preact/compat';
+    aliases['react-ssr-prepass'] = 'preact-ssr-prepass';
 
     // Automatically inject Preact DevTools
     if (dev) {
@@ -30,8 +50,8 @@ module.exports = withPrefresh({
       const entry = config.entry;
       config.entry = () =>
         entry().then((entries) => {
-          entries["main.js"] = ["preact/debug"].concat(
-            entries["main.js"] || []
+          entries['main.js'] = ['preact/debug'].concat(
+            entries['main.js'] || []
           );
           return entries;
         });
@@ -43,8 +63,8 @@ module.exports = withPrefresh({
       preact.options.vnode = (vnode) => {
         const props = vnode.props;
         if (props != null) {
-          if ("__self" in props) props.__self = null;
-          if ("__source" in props) props.__source = null;
+          if ('__self' in props) props.__self = null;
+          if ('__source' in props) props.__source = null;
         }
 
         if (oldVNodeHook) {

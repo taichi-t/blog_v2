@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { GetStaticProps } from "next";
+import { FC } from 'react';
+import { GetStaticProps } from 'next';
 
 type Props = {
   framework: string;
@@ -11,7 +11,7 @@ const SSG: FC<Props> = ({ framework }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: { framework: "preact" },
+    props: { framework: 'preact' },
   };
 };
 
