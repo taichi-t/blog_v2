@@ -10,8 +10,8 @@
     "fix": "yarn format && yarn lint:fix",
     "format": "prettier --write '**/*.{tsx,ts,js,jsx}' --ignore-path .prettierignore",
     "lint:fix": "eslint --fix '**/*.{tsx,ts,js,jsx}' --ignore-path .eslintignore",
-    "extract": "formatjs extract '{components|hooks|pages}/*.{tsx,ts,js,jsx}' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
-    "compile": "formatjs compile lang/en.json --ast --out-file compiled-lang/en.json",
+    "extract": "formatjs extract '{components,hooks,pages}/**.{tsx,ts,js,jsx}' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]' --format simple",
+    "compile": "formatjs compile lang/en.json --ast --out-file compiled-lang/en.json --format simple",
     "generate": "DOTENV_CONFIG_PATH='.env' graphql-codegen --require dotenv/config --config codegen.yml"
   },
   "devDependencies": {
