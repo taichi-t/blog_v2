@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLClient as GraphQLRequest } from 'graphql-request';
 import { DocumentNode } from 'graphql';
@@ -10,8 +9,8 @@ class GraphQLClient {
     this.graphQLClient = new GraphQLRequest(endpoint);
   }
 
-  request = async (query: DocumentNode): Promise<Record<string, any>> => {
-    const result = await this.graphQLClient.request(query);
+  request = async <T = any>(query: DocumentNode): Promise<T> => {
+    const result = await this.graphQLClient.request<T>(query);
     return result;
   };
 }
