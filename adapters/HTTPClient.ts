@@ -4,8 +4,8 @@ class HTTPClient {
     this.endpoint = endpoint;
   }
   request = async <T>(options?: RequestInit): Promise<T> => {
-    const rowData = await fetch(this.endpoint, options);
-    return rowData.json();
+    const data = await fetch(this.endpoint, options);
+    return data.json();
   };
 }
 

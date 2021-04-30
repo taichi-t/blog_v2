@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLClient as _GraphQLClient } from 'graphql-request';
 import { DocumentNode } from 'graphql';
-
 class GraphQLClient {
   private graphQLClient: _GraphQLClient;
 
@@ -9,9 +7,8 @@ class GraphQLClient {
     this.graphQLClient = new _GraphQLClient(endpoint);
   }
 
-  request = async <T = any>(query: DocumentNode): Promise<T> => {
-    const result = await this.graphQLClient.request<T>(query);
-    return result;
+  request = async <T>(query: DocumentNode): Promise<T> => {
+    return await this.graphQLClient.request<T>(query);
   };
 }
 

@@ -3,3 +3,4 @@
 next.config.js
 .next/*
 node_modules/*
+generated/*

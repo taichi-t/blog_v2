@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "target": "es5", // Specify ECMAScript target version
     "lib": ["dom", "dom.iterable", "esnext"], // List of library files to be included in the compilation
     "allowJs": true, // Allow JavaScript files to be compiled
@@ -17,13 +21,9 @@
     "sourceMap": true, // Generate corrresponding .map file
     "noUnusedLocals": true, // Report errors on unused locals
     "noUnusedParameters": true, // Report errors on unused parameters
-    "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["**/*"]
-    }
+    "noFallthroughCasesInSwitch": true // Report errors for fallthrough cases in switch statement
   },
-  "include": ["next-env.d.ts", "**/*.{tsx,ts}"],
-  "exclude": ["node_modules"] // *** The files to not type check ***
+  "include": ["next-env.d.ts", "**/*.tsx", "**/*.ts"],
+  "exclude": ["node_modules", ".next", "generated"] // *** The files to not type check ***
 }
 // ref: https://github.com/typescript-cheatsheets/react

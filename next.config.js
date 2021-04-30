@@ -1,6 +1,11 @@
+/** 
+ * @type {import('next/dist/next-server/server/config-shared').NextConfig} 
+ * */
+
 const withPrefresh = require('@prefresh/next');
 const preact = require('preact');
 const { transform } = require('@formatjs/ts-transformer');
+const path = require("path")
 
 module.exports = withPrefresh({
   webpack(config, options) {
@@ -43,6 +48,7 @@ module.exports = withPrefresh({
     const aliases = config.resolve.alias || (config.resolve.alias = {});
     aliases.react = aliases['react-dom'] = 'preact/compat';
     aliases['react-ssr-prepass'] = 'preact-ssr-prepass';
+    aliases['@'] = path.join(__dirname, './')
 
     // Automatically inject Preact DevTools
     if (dev) {
