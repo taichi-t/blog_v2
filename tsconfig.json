@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["**/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.{tsx,ts}"],
