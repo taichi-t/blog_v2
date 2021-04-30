@@ -1,0 +1,8 @@
+query MyProfile {
+  author(where: { id: "cko28scmoauai0b30ihv8xmi6" }) {
+    biography
+    createdAt
+    id
+    name
+  }
+}

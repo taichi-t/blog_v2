@@ -1,8 +1,16 @@
 import Link from 'next/link';
-import { FC } from 'react';
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
+import CMSApi from '@/services/CMSApi';
 
-const Home: FC = () => {
+const Home: React.VFC = () => {
+  React.useEffect(() => {
+    const getProfile = async () => {
+      await new CMSApi().getMyProfile();
+    };
+    getProfile();
+  }, []);
+
   return (
     <div>
       <FormattedMessage defaultMessage="hello" />

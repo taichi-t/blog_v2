@@ -4371,6 +4371,28 @@ export enum _SystemDateTimeFieldVariation {
   Combined = 'combined',
 }
 
+export type MyProfileQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MyProfileQuery = { __typename?: 'Query' } & {
+  author?: Maybe<
+    { __typename?: 'Author' } & Pick<
+      Author,
+      'biography' | 'createdAt' | 'id' | 'name'
+    >
+  >;
+};
+
+export const MyProfileDocument = gql`
+  query MyProfile {
+    author(where: { id: "cko28scmoauai0b30ihv8xmi6" }) {
+      biography
+      createdAt
+      id
+      name
+    }
+  }
+`;
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
 
 const defaultWrapper: SdkFunctionWrapper = (sdkFunction) => sdkFunction();
@@ -4379,6 +4401,19 @@ export function getSdk(
   client: GraphQLClient,
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
-  return {};
+  return {
+    MyProfile(
+      variables?: MyProfileQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<MyProfileQuery> {
+      return withWrapper(() =>
+        client.request<MyProfileQuery>(
+          MyProfileDocument,
+          variables,
+          requestHeaders
+        )
+      );
+    },
+  };
 }
 export type Sdk = ReturnType<typeof getSdk>;
