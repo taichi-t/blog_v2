@@ -1,16 +1,18 @@
 import Link from 'next/link';
+import { GetServerSideProps, NextPage } from 'next';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import CMSApi from '@/services/CMSApi';
+import cmsApi from '@/services/CMSApi';
+import translationApi, { Translations } from '@/services/TranslationApi';
+import { MyProfileQuery } from '@/generated/graphql';
+import { DEFALUTL_LOCALE } from '@/constants/locale';
 
-const Home: React.VFC = () => {
-  React.useEffect(() => {
-    const getProfile = async () => {
-      await new CMSApi().getMyProfile();
-    };
-    getProfile();
-  }, []);
+type Props = {
+  myProfile: MyProfileQuery;
+  translations: Translations;
+};
 
+const Index: NextPage<Props> = () => {
   return (
     <div>
       <FormattedMessage defaultMessage="hello" />
@@ -39,4 +41,15 @@ const Home: React.VFC = () => {
   );
 };
 
-export default Home;
+export const getServerSideProps: GetServerSideProps = async ({
+  locale = DEFALUTL_LOCALE,
+}) => {
+  const [myProfile, translations] = await Promise.all([
+    cmsApi.getMyProfile(),
+    translationApi.getTranslationsByLanguageKey(locale),
+  ]);
+  return {
+    props: { myProfile, translations },
+  };
+};
+export default Index;

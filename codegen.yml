@@ -1,4 +1,4 @@
-schema: ${NEXT_PUBLIC_GRAPHQL_CMS_ENDPOINT}
+schema: ${GRAPHQL_CMS_ENDPOINT}
 overwrite: true
 documents: '**/*.graphql'
 generates:

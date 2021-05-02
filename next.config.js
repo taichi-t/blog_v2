@@ -8,6 +8,10 @@ const { transform } = require('@formatjs/ts-transformer');
 const path = require("path")
 
 module.exports = withPrefresh({
+  i18n:{
+    locales:["en-US","jp-JP"],
+    defaultLocale: 'en-US',
+  },
   webpack(config, options) {
     const { dev, isServer } = options;
 
