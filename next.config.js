@@ -9,7 +9,7 @@ const path = require("path")
 
 module.exports = withPrefresh({
   i18n:{
-    locales:["en-US","jp-JP"],
+    locales:["en-US","ja-JP"],
     defaultLocale: 'en-US',
   },
   webpack(config, options) {
