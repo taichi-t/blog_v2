@@ -1,6 +1,6 @@
-type LOCALES = 'en_US' | 'ja_JP';
-const DEFALUTL_LOCALE = 'en_US';
-const FALLBACK_LOCALE = 'en_US';
+type LOCALES = 'en-US' | 'ja-JP';
+const DEFALUTL_LOCALE = 'en-US';
+const FALLBACK_LOCALE = 'en-US';
 
 export { DEFALUTL_LOCALE, FALLBACK_LOCALE };
 export type { LOCALES };
