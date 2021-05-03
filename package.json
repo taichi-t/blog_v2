@@ -12,7 +12,6 @@
     "format": "prettier --write '**/*.{tsx,ts,js,jsx}' --ignore-path .prettierignore",
     "lint:fix": "eslint --fix '**/*.{tsx,ts,js,jsx}' --ignore-path .eslintignore",
     "typecheck": "tsc --noEmit --pretty",
-    "extract": "formatjs extract '{components,hooks,pages}/**.{tsx,ts}' --out-file ./lang/en-US.json --id-interpolation-pattern '[sha512:contenthash:base64:6]' --format simple",
     "generate": "DOTENV_CONFIG_PATH='.env.development' graphql-codegen --require dotenv/config --config codegen.yml"
   },
   "devDependencies": {

@@ -20,7 +20,7 @@ jobs:
       - name: Extract Translation File
         run: npx --package @formatjs/cli formatjs extract "(components|pages|hooks)/**/*.ts*" --out-file=./lang/en-US.json --id-interpolation-pattern='[sha512:contenthash:base64:6]' --format simple
       - name: Upload the Translation File to SimpleLocalize
-        run: simplelocalize upload --apiKey=${{secrets.SIMPLELOCALIZE_API_KEY}} --uploadPath=./lang/en-US.json --uploadFormat=simplelocalize-json --languageKey=en-US
+        run: simplelocalize upload --apiKey=${{secrets.SIMPLELOCALIZE_API_KEY}} --uploadPath=./lang/en-US.json --uploadFormat=single-language-json --languageKey=en-US
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3.8.1
         with:
@@ -30,4 +30,4 @@ jobs:
           token: ${{secrets.GITHUB}}
           body: |
             Marge translations updates into master
-          commit-message: update translations
+          commit-message: ':earth_asia: update translations'
