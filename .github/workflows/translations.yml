@@ -24,7 +24,7 @@ jobs:
       - name: Upload the Translation File to SimpleLocalize
         run: simplelocalize upload --apiKey=${{secrets.SIMPLELOCALIZE_API_KEY}} --uploadPath=./lang/en-US.json --uploadFormat=simplelocalize-json --languageKey=en-US
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v1.7.0
+        uses: peter-evans/create-pull-request@v3.8.1
         with:
           title: Extracted translations into master
           labels: Auto PR
