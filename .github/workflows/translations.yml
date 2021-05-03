@@ -30,4 +30,4 @@ jobs:
           token: ${{secrets.GITHUB}}
           body: |
             Marge translations updates into master
-          commit-message: :earth_asia:\update translations
+          commit-message: ":earth_asia:\nupdate translations"
