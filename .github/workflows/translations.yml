@@ -1,4 +1,4 @@
-name: Extract and upload translations
+name: Extract and upload translations, create PR
 
 on:
   push:
@@ -20,3 +20,11 @@ jobs:
         run: npx --package @formatjs/cli formatjs extract "(components|pages|hooks)/**/*.ts*" --out-file=./lang/en-US.json --id-interpolation-pattern='[sha512:contenthash:base64:6]' --format simple
       - name: Upload the Translation File to SimpleLocalize
         run: simplelocalize upload --apiKey=${{secrets.SIMPLELOCALIZE_API_KEY}} --uploadPath=./lang/en-US.json --uploadFormat=simplelocalize-json --languageKey=en-US
+      - name: Create Pull Request
+      - uses: peter-evans/create-pull-request@v1.7.0
+      - uses: actions/checkout@master
+        with:
+          title: Extracted translations into master
+          labels: Auto PR
+          branch: extractedTranslations
+          token: ${{secrets.GITHUB}}
