@@ -1,16 +1,13 @@
-import { useRouter } from 'next/router';
 import * as React from 'react';
 import translationApi, { Translations } from '@/services/TranslationApi';
-import { FALLBACK_LOCALE } from '@/constants/locale';
+import { DEFALUTL_LOCALE } from '@/constants/locales';
 
 type Props = {
   translations: Translations;
   isLoading: boolean;
-  locale: string | undefined;
 };
 
-const useTranslations = (): Props => {
-  const { locale } = useRouter();
+const useTranslations = (locale: string): Props => {
   const [translations, setTranslations] = React.useState<Translations>();
   const [isLoading, setLoading] = React.useState(false);
 
@@ -18,7 +15,7 @@ const useTranslations = (): Props => {
     const fetcher = async () => {
       setLoading(true);
       const response = await translationApi.getTranslationsByLanguageKey(
-        locale ?? FALLBACK_LOCALE
+        locale ?? DEFALUTL_LOCALE
       );
       setTranslations(response);
       setLoading(false);
@@ -26,7 +23,7 @@ const useTranslations = (): Props => {
     fetcher();
   }, [locale]);
 
-  return { translations, isLoading, locale };
+  return { translations, isLoading };
 };
 
 export default useTranslations;

@@ -7,7 +7,7 @@ const preact = require('preact');
 const { transform } = require('@formatjs/ts-transformer');
 const path = require("path")
 
-module.exports = withPrefresh({
+const config = withPrefresh({
   i18n:{
     locales:["en-US","ja-JP"],
     defaultLocale: 'en-US',
@@ -87,3 +87,6 @@ module.exports = withPrefresh({
   },
   //ref: https://github.com/preactjs/next-plugin-preact/blob/master/packages/next-plugin-preact/index.js
 });
+
+
+module.exports = config

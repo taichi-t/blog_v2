@@ -5,14 +5,22 @@ import { FormattedMessage } from 'react-intl';
 import cmsApi from '@/services/CMSApi';
 import translationApi, { Translations } from '@/services/TranslationApi';
 import { MyProfileQuery } from '@/generated/graphql';
-import { DEFALUTL_LOCALE } from '@/constants/locale';
-
+import { useRouter } from 'next/router';
+import { DEFALUTL_LOCALE } from '@/constants/locales';
 type Props = {
   myProfile: MyProfileQuery;
   translations: Translations;
 };
 
 const Index: NextPage<Props> = () => {
+  const { pathname, asPath, locales } = useRouter();
+  const linkComponents = locales?.map((locale, index) => (
+    <li key={index}>
+      <Link href={pathname} locale={locale} as={asPath} passHref>
+        <a>{locale}</a>
+      </Link>
+    </li>
+  ));
   return (
     <div>
       <FormattedMessage defaultMessage="hello" />
@@ -22,13 +30,7 @@ const Index: NextPage<Props> = () => {
             <FormattedMessage defaultMessage="about" />
           </Link>
         </li>
-        <li>
-          <Link href="/ssr">
-            <a>
-              <FormattedMessage defaultMessage="SSR" />
-            </a>
-          </Link>
-        </li>
+        {linkComponents}
         <li>
           <Link href="/ssg">
             <a>
@@ -41,15 +43,13 @@ const Index: NextPage<Props> = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale = DEFALUTL_LOCALE,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const [myProfile, translations] = await Promise.all([
     cmsApi.getMyProfile(),
-    translationApi.getTranslationsByLanguageKey(locale),
+    translationApi.getTranslationsByLanguageKey(locale ?? DEFALUTL_LOCALE),
   ]);
   return {
-    props: { myProfile, translations },
+    props: { myProfile, locale, translations },
   };
 };
 export default Index;
