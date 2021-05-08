@@ -6,6 +6,7 @@ const withPrefresh = require('@prefresh/next');
 const preact = require('preact');
 const path = require('path');
 const LINARIA_EXTENSION = '.linaria.module.css';
+const GLOBAL_CSS_EXTENSIOM = '.css';
 
 const config = withPrefresh({
   i18n: {
@@ -18,7 +19,7 @@ const config = withPrefresh({
     // For styles with Linaria
     traverse(config.module.rules);
     config.module.rules.push({
-      test: /\.(tsx|ts)$/,
+      test: /(?!_app)\.(tsx|ts)$/,
       exclude: /node_modules/,
       use: [
         defaultLoaders.babel,
@@ -27,6 +28,21 @@ const config = withPrefresh({
           options: {
             sourceMap: process.env.NODE_ENV !== 'production',
             extension: LINARIA_EXTENSION,
+          },
+        },
+      ],
+    });
+
+    config.module.rules.push({
+      test: /_app\.(tsx|ts)$/,
+      exclude: /node_modules/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@linaria/webpack-loader',
+          options: {
+            sourceMap: process.env.NODE_ENV !== 'production',
+            extension: GLOBAL_CSS_EXTENSIOM,
           },
         },
       ],
