@@ -1,5 +1,13 @@
 import { GraphQLClient } from 'graphql-request';
-import { MyProfileDocument, MyProfileQuery } from '@/generated/graphql';
+import {
+  MyProfileDocument,
+  MyProfileQuery,
+  GetPostsDocument,
+  GetPostsQueryVariables,
+  GetPostsQuery,
+  Locale,
+  PostOrderByInput,
+} from '@/generated/graphql';
 
 class CMSApi {
   graphQLClient: GraphQLClient;
@@ -14,6 +22,17 @@ class CMSApi {
       MyProfileDocument
     );
 
+    return response;
+  };
+
+  getPosts = async (): Promise<GetPostsQuery> => {
+    const response = await this.graphQLClient.request<
+      GetPostsQuery,
+      GetPostsQueryVariables
+    >(GetPostsDocument, {
+      locales: [Locale.JaJp],
+      orderBy: PostOrderByInput.ContentDesc,
+    });
     return response;
   };
 }

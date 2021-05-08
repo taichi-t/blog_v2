@@ -6,3 +6,26 @@ query MyProfile {
     name
   }
 }
+
+query GetPosts($locales: [Locale!]!, $orderBy: PostOrderByInput!) {
+  posts(locales: $locales, orderBy: $orderBy) {
+    content
+    createdAt(variation: BASE)
+    author(locales: $locales) {
+      biography
+      name
+      title
+    }
+    title
+    updatedAt(variation: BASE)
+    coverImage {
+      url(
+        transformation: {
+          document: { output: { format: jpg } }
+          image: { resize: { fit: clip } }
+          validateOptions: false
+        }
+      )
+    }
+  }
+}

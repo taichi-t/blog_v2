@@ -4,16 +4,18 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import cmsApi from '@/services/CMSApi';
 import translationApi, { Translations } from '@/services/TranslationApi';
-import { MyProfileQuery } from '@/generated/graphql';
+import { MyProfileQuery, GetPostsQuery } from '@/generated/graphql';
 import { useRouter } from 'next/router';
 import { DEFALUTL_LOCALE } from '@/constants/locales';
 import { styled } from '@linaria/react';
 type Props = {
   myProfile: MyProfileQuery;
   translations: Translations;
+  posts: GetPostsQuery;
 };
 
-const Index: NextPage<Props> = () => {
+const Index: NextPage<Props> = ({ posts }) => {
+  console.log(posts);
   const { pathname, asPath, locales } = useRouter();
   const linkComponents = locales?.map((locale, index) => (
     <li key={index}>
@@ -50,12 +52,17 @@ const Text = styled('li')`
 `;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  const [myProfile, translations] = await Promise.all([
-    cmsApi.getMyProfile(),
+  const [translations, { posts }] = await Promise.all([
     translationApi.getTranslationsByLanguageKey(locale ?? DEFALUTL_LOCALE),
+    cmsApi.getPosts(),
   ]);
+
+  if (posts.length <= 0) {
+    return { notFound: true };
+  }
+
   return {
-    props: { myProfile, locale, translations },
+    props: { locale, translations, posts },
   };
 };
 export default Index;
