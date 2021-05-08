@@ -1,6 +1,6 @@
 # Blog v2
 
-preact + next.js + goober + typescript
+preact + next.js + Linaria + typescript
 
 # File Structure
 
