@@ -7,6 +7,7 @@ import translationApi, { Translations } from '@/services/TranslationApi';
 import { MyProfileQuery } from '@/generated/graphql';
 import { useRouter } from 'next/router';
 import { DEFALUTL_LOCALE } from '@/constants/locales';
+import { styled } from '@linaria/react';
 type Props = {
   myProfile: MyProfileQuery;
   translations: Translations;
@@ -39,9 +40,14 @@ const Index: NextPage<Props> = () => {
           </Link>
         </li>
       </ul>
+      <Text>赤色のテキストです</Text>
     </div>
   );
 };
+
+const Text = styled('li')`
+  color: red;
+`;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const [myProfile, translations] = await Promise.all([
