@@ -18,7 +18,7 @@ import {
   Locale,
   PostOrderByInput,
 } from '@/generated/graphql';
-import { LOCALES } from '@/constants/locales';
+import { Locales } from '@/constants/locales';
 
 class CMSApi {
   graphQLClient: GraphQLClient;
@@ -30,7 +30,7 @@ class CMSApi {
 
   getPostsByPage = async (
     skip: number,
-    locale: LOCALES,
+    locale: Locales,
     orderBy: PostOrderByInput,
     limit: number
   ): Promise<GetPostsByPageQuery> => {
@@ -49,7 +49,7 @@ class CMSApi {
   };
 
   getPostBySlug = async (
-    locale: LOCALES,
+    locale: Locales,
     slug: string
   ): Promise<GetPostBySlugQuery> => {
     const response = await this.graphQLClient.request<
