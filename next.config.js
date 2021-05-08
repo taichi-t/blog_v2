@@ -1,38 +1,36 @@
-/** 
- * @type {import('next/dist/next-server/server/config-shared').NextConfig} 
+/**
+ * @type {import('next/dist/next-server/server/config-shared').NextConfig}
  * */
 
 const withPrefresh = require('@prefresh/next');
 const preact = require('preact');
-const { transform } = require('@formatjs/ts-transformer');
-const path = require("path")
+const path = require('path');
+const LINARIA_EXTENSION = '.linaria.module.css';
 
 const config = withPrefresh({
-  i18n:{
-    locales:["en-US","ja-JP"],
+  i18n: {
+    locales: ['en-US', 'ja-JP'],
     defaultLocale: 'en-US',
   },
   webpack(config, options) {
-    const { dev, isServer } = options;
+    const { dev, isServer, defaultLoaders } = options;
 
-       //Install webpack rules
-       config.module.rules.push({
-        test: /\.(tsx|ts)$/,
-        use: {
-          loader: 'ts-loader',
+    // For styles with Linaria
+    traverse(config.module.rules);
+    config.module.rules.push({
+      test: /\.(tsx|ts)$/,
+      exclude: /node_modules/,
+      use: [
+        defaultLoaders.babel,
+        {
+          loader: '@linaria/webpack-loader',
           options: {
-            getCustomTransformers() {
-              return {
-                before: [
-                  transform({ overrideIdFn: '[sha512:contenthash:base64:6]' }),
-                ],
-              };
-            },
+            sourceMap: process.env.NODE_ENV !== 'production',
+            extension: LINARIA_EXTENSION,
           },
         },
-  
-        exclude: /node_modules/,
-      });
+      ],
+    });
 
     // Move Preact into the framework chunk instead of duplicating in routes:
     const splitChunks = config.optimization && config.optimization.splitChunks;
@@ -52,7 +50,7 @@ const config = withPrefresh({
     const aliases = config.resolve.alias || (config.resolve.alias = {});
     aliases.react = aliases['react-dom'] = 'preact/compat';
     aliases['react-ssr-prepass'] = 'preact-ssr-prepass';
-    aliases['@'] = path.join(__dirname, './')
+    aliases['@'] = path.join(__dirname, './');
 
     // Automatically inject Preact DevTools
     if (dev) {
@@ -88,5 +86,35 @@ const config = withPrefresh({
   //ref: https://github.com/preactjs/next-plugin-preact/blob/master/packages/next-plugin-preact/index.js
 });
 
+module.exports = config;
 
-module.exports = config
+const traverse = (rules) => {
+  for (let rule of rules) {
+    if (typeof rule.loader === 'string' && rule.loader.includes('css-loader')) {
+      if (
+        rule.options &&
+        rule.options.modules &&
+        typeof rule.options.modules.getLocalIdent === 'function'
+      ) {
+        let nextGetLocalIdent = rule.options.modules.getLocalIdent;
+        rule.options.modules.getLocalIdent = (
+          context,
+          _,
+          exportName,
+          options
+        ) => {
+          if (context.resourcePath.includes(LINARIA_EXTENSION)) {
+            return exportName;
+          }
+          return nextGetLocalIdent(context, _, exportName, options);
+        };
+      }
+    }
+    if (typeof rule.use === 'object') {
+      traverse(Array.isArray(rule.use) ? rule.use : [rule.use]);
+    }
+    if (Array.isArray(rule.oneOf)) {
+      traverse(rule.oneOf);
+    }
+  }
+};

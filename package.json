@@ -12,7 +12,8 @@
     "format": "prettier --write '**/*.{tsx,ts,js,jsx}' --ignore-path .prettierignore",
     "lint:fix": "eslint --fix '**/*.{tsx,ts,js,jsx}' --ignore-path .eslintignore",
     "typecheck": "tsc --noEmit --pretty",
-    "generate": "DOTENV_CONFIG_PATH='.env.development' graphql-codegen --require dotenv/config --config codegen.yml"
+    "generate": "DOTENV_CONFIG_PATH='.env.development' graphql-codegen --require dotenv/config --config codegen.yml",
+    "extract": "formatjs extract '(components|pages|hooks)/**/*.ts*' --out-file=./lang/en-US.json --id-interpolation-pattern='[sha512:contenthash:base64:6]' --format simple"
   },
   "devDependencies": {
     "@formatjs/cli": "^4.2.9",
@@ -23,6 +24,7 @@
     "@types/react": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "babel-plugin-formatjs": "^10.2.11",
     "dotenv": "^8.2.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
@@ -33,7 +35,11 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@formatjs/ts-transformer": "^3.3.9",
+    "@linaria/babel-preset": "^3.0.0-beta.4",
+    "@linaria/core": "^3.0.0-beta.4",
+    "@linaria/react": "^3.0.0-beta.4",
+    "@linaria/shaker": "^3.0.0-beta.4",
+    "@linaria/webpack-loader": "^3.0.0-beta.4",
     "@prefresh/next": "^1.4.6",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
