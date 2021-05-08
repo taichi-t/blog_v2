@@ -1,31 +1,62 @@
-query MyProfile {
-  author(where: { id: "cko28scmoauai0b30ihv8xmi6" }) {
-    biography
-    createdAt
-    id
-    name
+query GetPostsByPage(
+  $locales: [Locale!]!
+  $orderBy: PostOrderByInput!
+  $skip: Int!
+  $limit: Int!
+) {
+  posts(locales: $locales, orderBy: $orderBy, skip: $skip, first: $limit) {
+    title
+    updatedAt(variation: BASE)
+    createdAt(variation: BASE)
+    excerpt
+    slug
   }
 }
 
-query GetPosts($locales: [Locale!]!, $orderBy: PostOrderByInput!) {
-  posts(locales: $locales, orderBy: $orderBy) {
+query GetPostBySlug($slug: String!, $locales: [Locale!]!) {
+  post(where: { slug: $slug }, locales: $locales) {
     content
-    createdAt(variation: BASE)
-    author(locales: $locales) {
-      biography
+    id
+    tags(orderBy: name_DESC) {
       name
-      title
+      id
+      slug
     }
-    title
+    createdAt(variation: BASE)
     updatedAt(variation: BASE)
-    coverImage {
-      url(
-        transformation: {
-          document: { output: { format: jpg } }
-          image: { resize: { fit: clip } }
-          validateOptions: false
-        }
-      )
+  }
+}
+
+query GetTags {
+  tags {
+    name
+    id
+    slug
+  }
+}
+
+query GetPostsByTag(
+  $tagSlug: String!
+  $locales: [Locale!]!
+  $orderBy: PostOrderByInput
+) {
+  posts(
+    where: { tags_every: { slug: $tagSlug } }
+    locales: $locales
+    orderBy: $orderBy
+  ) {
+    content
+    title
+    slug
+    id
+    createdAt(variation: BASE)
+  }
+}
+
+query GetPostsCount {
+  postsConnection {
+    aggregate {
+      count
     }
   }
 }
