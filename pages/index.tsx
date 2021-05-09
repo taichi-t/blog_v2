@@ -21,16 +21,13 @@ type Props = {
   GetTagsQuery;
 
 const Index: NextPage<Props> = () => {
-  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
-
   const handleDarkTheme = () => {
-    if (isDarkTheme) {
+    const attribute = document.documentElement.getAttribute('data-theme');
+    if (attribute === 'dark') {
       document.documentElement.setAttribute('data-theme', 'none');
-      setIsDarkTheme(!isDarkTheme);
       return;
     }
     document.documentElement.setAttribute('data-theme', 'dark');
-    setIsDarkTheme(!isDarkTheme);
   };
 
   const { pathname, asPath, locales } = useRouter();

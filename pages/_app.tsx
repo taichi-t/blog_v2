@@ -171,5 +171,3 @@ export const global = css`
       height: 3px;
     }
 `;
-
-export const nprogress = css``;
