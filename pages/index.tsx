@@ -20,7 +20,7 @@ type Props = {
 } & GetPostsByPageQuery &
   GetTagsQuery;
 
-const Index: NextPage<Props> = () => {
+const Index: NextPage<Props> = ({ posts }) => {
   const handleDarkTheme = () => {
     const attribute = document.documentElement.getAttribute('data-theme');
     if (attribute === 'dark') {
@@ -38,6 +38,15 @@ const Index: NextPage<Props> = () => {
       </Link>
     </li>
   ));
+
+  const postLinkComponents = posts.map((post) => {
+    return (
+      <Link href={`/posts/${post.slug}`} key={post.slug}>
+        {post.title}
+      </Link>
+    );
+  });
+
   return (
     <div>
       <FormattedMessage defaultMessage="hello" />
@@ -56,6 +65,7 @@ const Index: NextPage<Props> = () => {
           </Link>
         </li>
       </ul>
+      <ul>{postLinkComponents}</ul>
       <Text>赤色のテキストです</Text>
       <button onClick={handleDarkTheme}>ダークテーマになります</button>
     </div>
