@@ -20,6 +20,18 @@ type Props = {
   GetTagsQuery;
 
 const Index: NextPage<Props> = () => {
+  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+
+  const handleDarkTheme = () => {
+    if (isDarkTheme) {
+      document.documentElement.setAttribute('data-theme', 'none');
+      setIsDarkTheme(!isDarkTheme);
+      return;
+    }
+    document.documentElement.setAttribute('data-theme', 'dark');
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   const { pathname, asPath, locales } = useRouter();
   const linkComponents = locales?.map((locale, index) => (
     <li key={index}>
@@ -47,6 +59,7 @@ const Index: NextPage<Props> = () => {
         </li>
       </ul>
       <Text>赤色のテキストです</Text>
+      <button onClick={handleDarkTheme}>ダークテーマになります</button>
     </div>
   );
 };
