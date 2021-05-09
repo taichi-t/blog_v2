@@ -21,7 +21,8 @@ type Props = {
   GetTagsQuery;
 
 const Index: NextPage<Props> = ({ posts }) => {
-  const handleDarkTheme = () => {
+  const onToggleTheme = () => {
+    if (!process.browser) return;
     const attribute = document.documentElement.getAttribute('data-theme');
     if (attribute === 'dark') {
       document.documentElement.setAttribute('data-theme', 'none');
@@ -67,7 +68,7 @@ const Index: NextPage<Props> = ({ posts }) => {
       </ul>
       <ul>{postLinkComponents}</ul>
       <Text>赤色のテキストです</Text>
-      <button onClick={handleDarkTheme}>ダークテーマになります</button>
+      <button onClick={onToggleTheme}>ダークテーマになります</button>
     </div>
   );
 };
