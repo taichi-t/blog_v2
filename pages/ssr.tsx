@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { GetServerSideProps } from 'next';
+import { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 type Props = {

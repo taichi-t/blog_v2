@@ -1,13 +1,15 @@
+import 'normalize.css';
+
+import { css } from '@linaria/core';
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import Router from 'next/router';
+import NProgress from 'nprogress';
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
-import { AppProps } from 'next/app';
+
 import { DEFALUTL_LOCALE } from '@/constants/locales';
 import DEFAULT_MESSAGES from '@/lang/en-US.json';
-import 'normalize.css';
-import Head from 'next/head';
-import { css } from '@linaria/core';
-import NProgress from 'nprogress';
-import Router from 'next/router';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   React.useEffect(() => {

@@ -1,18 +1,19 @@
-import Link from 'next/link';
+import { styled } from '@linaria/react';
 import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import cmsApi from '@/services/CMSApi';
-import translationApi from '@/services/TranslationApi';
-import {
-  PostOrderByInput,
-  GetPostsByPageQuery,
-  GetTagsQuery,
-} from '@/generated/graphql';
-import { useRouter } from 'next/router';
+
 import { DEFALUTL_LOCALE, Locales } from '@/constants/locales';
 import { POSTS_LIMIT } from '@/constants/meta';
-import { styled } from '@linaria/react';
+import {
+  GetPostsByPageQuery,
+  GetTagsQuery,
+  PostOrderByInput,
+} from '@/generated/graphql';
+import cmsApi from '@/services/CMSApi';
+import translationApi from '@/services/TranslationApi';
 
 type Props = {
   locale: Locales;

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import translationApi, { Translations } from '@/services/TranslationApi';
+
 import { DEFALUTL_LOCALE } from '@/constants/locales';
+import translationApi, { Translations } from '@/services/TranslationApi';
 
 type Props = {
   translations: Translations;

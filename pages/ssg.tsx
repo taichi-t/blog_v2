@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import { GetStaticProps } from 'next';
-import { FormattedMessage } from 'react-intl';
 import { styled } from '@linaria/react';
+import { GetStaticProps } from 'next';
+import { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 type Props = {
   framework: string;

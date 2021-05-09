@@ -1,5 +1,6 @@
-import HttpClient from '@/adapters/HttpClient';
 import type { IntlConfig } from 'react-intl';
+
+import HttpClient from '@/adapters/HttpClient';
 
 export type Translations = IntlConfig['messages'];
 

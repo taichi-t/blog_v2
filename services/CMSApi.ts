@@ -1,11 +1,13 @@
 import { GraphQLClient } from 'graphql-request';
+
+import { Locales } from '@/constants/locales';
 import {
-  GetPostsByPageDocument,
-  GetPostsByPageQuery,
-  GetPostsByPageQueryVariables,
   GetPostBySlugDocument,
   GetPostBySlugQuery,
   GetPostBySlugQueryVariables,
+  GetPostsByPageDocument,
+  GetPostsByPageQuery,
+  GetPostsByPageQueryVariables,
   GetPostsByTagDocument,
   GetPostsByTagQuery,
   GetPostsByTagQueryVariables,
@@ -18,7 +20,6 @@ import {
   Locale,
   PostOrderByInput,
 } from '@/generated/graphql';
-import { Locales } from '@/constants/locales';
 
 class CMSApi {
   graphQLClient: GraphQLClient;
