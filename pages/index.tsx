@@ -1,7 +1,5 @@
-import { styled } from '@linaria/react';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -14,7 +12,6 @@ import {
 } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
-import useToggleTheme from '@/hooks/useToggleTheme';
 
 type Props = {
   locale: Locales;
@@ -22,17 +19,6 @@ type Props = {
   GetTagsQuery;
 
 const Index: NextPage<Props> = ({ posts }) => {
-  const { onToggleTheme } = useToggleTheme();
-
-  const { pathname, asPath, locales } = useRouter();
-  const linkComponents = locales?.map((locale, index) => (
-    <li key={index}>
-      <Link href={pathname} locale={locale} as={asPath} passHref>
-        <a>{locale}</a>
-      </Link>
-    </li>
-  ));
-
   const postLinkComponents = posts.map((post) => {
     return (
       <Link href={`/posts/${post.slug}`} key={post.slug}>
@@ -50,7 +36,6 @@ const Index: NextPage<Props> = ({ posts }) => {
             <FormattedMessage defaultMessage="about" />
           </Link>
         </li>
-        {linkComponents}
         <li>
           <Link href="/ssg">
             <a>
@@ -60,15 +45,9 @@ const Index: NextPage<Props> = ({ posts }) => {
         </li>
       </ul>
       <ul>{postLinkComponents}</ul>
-      <Text>赤色のテキストです</Text>
-      <button onClick={onToggleTheme}>ダークテーマになります</button>
     </div>
   );
 };
-
-const Text = styled('li')`
-  color: red;
-`;
 
 export const getServerSideProps: GetServerSideProps = async ({
   locale = DEFALUTL_LOCALE,

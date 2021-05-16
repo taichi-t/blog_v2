@@ -9,6 +9,7 @@ import { IntlProvider } from 'react-intl';
 import { DEFALUTL_LOCALE } from '@/constants/locales';
 import DEFAULT_MESSAGES from '@/lang/en-US.json';
 import useRouteEventHandler from '@/hooks/useRouteEventHandler';
+import Navbar from '@/components/Navbar';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   useRouteEventHandler();
@@ -28,8 +29,10 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         defaultLocale={DEFALUTL_LOCALE}
         onError={(error) => {
           if (error.code === 'MISSING_DATA') return;
+          if (error.code === 'MISSING_TRANSLATION') return;
           throw error;
         }}>
+        <Navbar />
         <Component {...pageProps} />
       </IntlProvider>
     </>
@@ -143,6 +146,9 @@ export const global = css`
       font-size: var(--font-size-base);
       font-family: var(--font-family-body);
       line-height: 1.7;
+      max-width: 1140px;
+      padding: 0 1rem;
+      margin: 0 auto;
     }
     a {
       text-decoration: none;

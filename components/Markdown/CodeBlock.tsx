@@ -2,7 +2,7 @@ import {
   CodeComponent,
   ReactMarkdownNames,
 } from 'react-markdown/src/ast-to-react';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { css } from '@linaria/core';
 
