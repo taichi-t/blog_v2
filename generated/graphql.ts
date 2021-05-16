@@ -803,12 +803,12 @@ export type AuthorConnection = {
 export type AuthorCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  /** name input for default locale (en_EN) */
+  /** name input for default locale (en_US) */
   name: Scalars['String'];
   picture?: Maybe<AssetCreateOneInlineInput>;
-  /** title input for default locale (en_EN) */
+  /** title input for default locale (en_US) */
   title?: Maybe<Scalars['String']>;
-  /** biography input for default locale (en_EN) */
+  /** biography input for default locale (en_US) */
   biography?: Maybe<Scalars['String']>;
   post?: Maybe<PostCreateOneInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
@@ -956,12 +956,12 @@ export enum AuthorOrderByInput {
 }
 
 export type AuthorUpdateInput = {
-  /** name input for default locale (en_EN) */
+  /** name input for default locale (en_US) */
   name?: Maybe<Scalars['String']>;
   picture?: Maybe<AssetUpdateOneInlineInput>;
-  /** title input for default locale (en_EN) */
+  /** title input for default locale (en_US) */
   title?: Maybe<Scalars['String']>;
-  /** biography input for default locale (en_EN) */
+  /** biography input for default locale (en_US) */
   biography?: Maybe<Scalars['String']>;
   post?: Maybe<PostUpdateOneInlineInput>;
   /** Manage document localizations */
@@ -1007,11 +1007,11 @@ export type AuthorUpdateManyInlineInput = {
 };
 
 export type AuthorUpdateManyInput = {
-  /** name input for default locale (en_EN) */
+  /** name input for default locale (en_US) */
   name?: Maybe<Scalars['String']>;
-  /** title input for default locale (en_EN) */
+  /** title input for default locale (en_US) */
   title?: Maybe<Scalars['String']>;
-  /** biography input for default locale (en_EN) */
+  /** biography input for default locale (en_US) */
   biography?: Maybe<Scalars['String']>;
   /** Optional updates to localizations */
   localizations?: Maybe<AuthorUpdateManyLocalizationsInput>;
@@ -1349,7 +1349,7 @@ export type ImageTransformationInput = {
 /** Locale system enumeration */
 export enum Locale {
   /** System locale */
-  EnEn = 'en_EN',
+  EnUs = 'en_US',
   JaJp = 'ja_JP',
 }
 
@@ -2828,13 +2828,13 @@ export type PostConnection = {
 export type PostCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  /** title input for default locale (en_EN) */
+  /** title input for default locale (en_US) */
   title: Scalars['String'];
   slug: Scalars['String'];
   date: Scalars['Date'];
-  /** content input for default locale (en_EN) */
+  /** content input for default locale (en_US) */
   content: Scalars['String'];
-  /** excerpt input for default locale (en_EN) */
+  /** excerpt input for default locale (en_US) */
   excerpt?: Maybe<Scalars['String']>;
   seo?: Maybe<SeoCreateOneInlineInput>;
   author?: Maybe<AuthorCreateOneInlineInput>;
@@ -3027,13 +3027,13 @@ export enum PostOrderByInput {
 }
 
 export type PostUpdateInput = {
-  /** title input for default locale (en_EN) */
+  /** title input for default locale (en_US) */
   title?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
-  /** content input for default locale (en_EN) */
+  /** content input for default locale (en_US) */
   content?: Maybe<Scalars['String']>;
-  /** excerpt input for default locale (en_EN) */
+  /** excerpt input for default locale (en_US) */
   excerpt?: Maybe<Scalars['String']>;
   seo?: Maybe<SeoUpdateOneInlineInput>;
   author?: Maybe<AuthorUpdateOneInlineInput>;
@@ -3082,12 +3082,12 @@ export type PostUpdateManyInlineInput = {
 };
 
 export type PostUpdateManyInput = {
-  /** title input for default locale (en_EN) */
+  /** title input for default locale (en_US) */
   title?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
-  /** content input for default locale (en_EN) */
+  /** content input for default locale (en_US) */
   content?: Maybe<Scalars['String']>;
-  /** excerpt input for default locale (en_EN) */
+  /** excerpt input for default locale (en_US) */
   excerpt?: Maybe<Scalars['String']>;
   /** Optional updates to localizations */
   localizations?: Maybe<PostUpdateManyLocalizationsInput>;

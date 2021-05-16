@@ -45,6 +45,8 @@ export const global = css`
       --color-background: #ffffff;
       --color-paper: #fafafa;
       --color-skeleton: #e0e0e0;
+      --color-grey300: #6a737d;
+      --color-grey200: #dfe2e5;
 
       /* skeleton */
       --color-gradient100: rgba(255, 255, 255, 0);
@@ -79,6 +81,13 @@ export const global = css`
       --font-size-sm: 1.2rem;
       --font-size-xs: 0.8rem;
 
+      /* font-family */
+      --font-family-body: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+        sans-serif;
+
+      --font-family-code: 'Fira Code', monospace;
+
       /* spacing */
       --spacing-size-xxl: 6rem;
       --spacing-size-xl: 5.2rem;
@@ -95,6 +104,9 @@ export const global = css`
       --color-background: #15202b;
       --color-paper: #192834;
       --color-skeleton: #2a343d;
+
+      --color-grey300: #c6c6c7;
+      --color-grey200: #626466;
 
       /* skeleton */
       --color-gradient100: rgba(106, 113, 131, 0);
@@ -129,8 +141,7 @@ export const global = css`
     }
     body {
       font-size: var(--font-size-base);
-      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      font-family: var(--font-family-body);
       line-height: 1.7;
     }
     a {
@@ -156,4 +167,5 @@ export const global = css`
       width: 100%;
       height: 3px;
     }
+  }
 `;

@@ -14,6 +14,7 @@ import {
 } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
+import useToggleTheme from '@/hooks/useToggleTheme';
 
 type Props = {
   locale: Locales;
@@ -21,15 +22,7 @@ type Props = {
   GetTagsQuery;
 
 const Index: NextPage<Props> = ({ posts }) => {
-  const onToggleTheme = () => {
-    if (!process.browser) return;
-    const attribute = document.documentElement.getAttribute('data-theme');
-    if (attribute === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'none');
-      return;
-    }
-    document.documentElement.setAttribute('data-theme', 'dark');
-  };
+  const { onToggleTheme } = useToggleTheme();
 
   const { pathname, asPath, locales } = useRouter();
   const linkComponents = locales?.map((locale, index) => (
