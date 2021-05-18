@@ -14,4 +14,7 @@ const Navbar: React.VFC = () => {
 
 export default Navbar;
 
-const NavbarLayout = css``;
+const NavbarLayout = css`
+  display: flex;
+  justify-content: space-between;
+`;

@@ -146,6 +146,9 @@ export const global = css`
       font-size: var(--font-size-base);
       font-family: var(--font-family-body);
       line-height: 1.7;
+      max-width: 1140px;
+      padding: 0 1rem;
+      margin: 0 auto;
     }
     a {
       text-decoration: none;

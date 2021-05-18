@@ -379,17 +379,17 @@ export const gfmMarkdownStyles = css`
     background-color: var(--color-skeleton);
   }
 
-  & > img {
+  & img {
     max-width: 100%;
     box-sizing: initial;
     background-color: var(--color-background);
   }
 
-  & > img[align='right'] {
+  & img[align='right'] {
     padding-left: 20px;
   }
 
-  & > img[align='left'] {
+  & img[align='left'] {
     padding-right: 20px;
   }
 `;
