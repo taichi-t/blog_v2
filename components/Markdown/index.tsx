@@ -1,9 +1,10 @@
+import { css } from '@linaria/core';
 import {
   NormalComponents,
   SpecialComponents,
 } from 'react-markdown/src/ast-to-react';
+
 import CodeBlock from './CodeBlock';
-import { css } from '@linaria/core';
 
 const MarkdownElements: Partial<NormalComponents & SpecialComponents> = {
   code: CodeBlock,

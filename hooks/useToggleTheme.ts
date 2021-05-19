@@ -1,17 +1,19 @@
-type Props = () => { onToggleTheme: () => void };
+import React from 'react';
+
+type Props = () => { onToggleTheme: () => void; dark: boolean };
 
 const useToggleTheme: Props = () => {
+  const [dark, setDark] = React.useState(false);
   const onToggleTheme = () => {
     if (!process.browser) return;
-    const attribute = document.documentElement.getAttribute('data-theme');
-    if (attribute === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'none');
-      return;
-    }
-    document.documentElement.setAttribute('data-theme', 'dark');
+    setDark(!dark);
   };
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'none');
+  }, [dark]);
   return {
     onToggleTheme,
+    dark,
   };
 };
 

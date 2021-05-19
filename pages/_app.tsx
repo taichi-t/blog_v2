@@ -6,10 +6,10 @@ import Head from 'next/head';
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
 
-import { DEFALUTL_LOCALE } from '@/constants/locales';
-import DEFAULT_MESSAGES from '@/lang/en-US.json';
-import useRouteEventHandler from '@/hooks/useRouteEventHandler';
 import Navbar from '@/components/Navbar';
+import { DEFALUTL_LOCALE } from '@/constants/locales';
+import useRouteEventHandler from '@/hooks/useRouteEventHandler';
+import DEFAULT_MESSAGES from '@/lang/en-US.json';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   useRouteEventHandler();
@@ -63,6 +63,11 @@ export const global = css`
       /* key color */
       --color-blue: #1a0dab;
       --color-bioret: rgba(102, 0, 53);
+      --color-yellow: #f2bf5e;
+      --color-blue: #7ec9ed;
+      --color-bioret: #c1b4fb;
+      --color-red: #ff6161;
+      --color-green: #bada55;
 
       /* key color opacity */
       --color-opacityYellow: rgba(242, 191, 94, 0.6);
@@ -146,7 +151,7 @@ export const global = css`
       font-size: var(--font-size-base);
       font-family: var(--font-family-body);
       line-height: 1.7;
-      max-width: 1140px;
+      max-width: 980px;
       padding: 0 1rem;
       margin: 0 auto;
     }
@@ -157,6 +162,15 @@ export const global = css`
     a:hover {
       color: var(--color-opacityBlue);
       text-decoration: underline;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      padding: 0;
+      appearance: none;
     }
 
     // nprogress bar

@@ -35,6 +35,8 @@
   "rules": {
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "react/no-children-prop": "off"
+    "react/no-children-prop": "off",
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn"
   }
 }

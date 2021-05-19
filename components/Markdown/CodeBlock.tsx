@@ -1,10 +1,10 @@
+import { css } from '@linaria/core';
 import {
   CodeComponent,
   ReactMarkdownNames,
 } from 'react-markdown/src/ast-to-react';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { css } from '@linaria/core';
 
 const CodeBlock: CodeComponent | ReactMarkdownNames = ({
   inline,
@@ -20,6 +20,7 @@ const CodeBlock: CodeComponent | ReactMarkdownNames = ({
       style={vscDarkPlus}
       children={String(children).replace(/\n$/, '')}
       {...props}
+      wrapLongLines={false}
     />
   ) : (
     <code

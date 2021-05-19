@@ -1,12 +1,12 @@
 import { GetServerSideProps } from 'next';
 import { FC } from 'react';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 
+import MarkdownElements, { gfmMarkdownStyles } from '@/components/Markdown';
 import { DEFALUTL_LOCALE, Locales } from '@/constants/locales';
 import { GetPostBySlugQuery } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
-import MarkdownElements, { gfmMarkdownStyles } from '@/components/Markdown';
 
 type Props = GetPostBySlugQuery;
 
