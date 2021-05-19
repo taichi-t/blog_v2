@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import { DEFALUTL_LOCALE, Locales } from '@/constants/locales';
 import { POSTS_LIMIT } from '@/constants/meta';
@@ -27,26 +26,7 @@ const Index: NextPage<Props> = ({ posts }) => {
     );
   });
 
-  return (
-    <div>
-      <FormattedMessage defaultMessage="hello" />
-      <ul>
-        <li>
-          <Link href="/about">
-            <FormattedMessage defaultMessage="about" />
-          </Link>
-        </li>
-        <li>
-          <Link href="/ssg">
-            <a>
-              <FormattedMessage defaultMessage="SSG" />
-            </a>
-          </Link>
-        </li>
-      </ul>
-      <ul>{postLinkComponents}</ul>
-    </div>
-  );
+  return <div>{postLinkComponents}</div>;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({

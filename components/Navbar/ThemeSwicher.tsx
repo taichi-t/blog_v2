@@ -1,18 +1,20 @@
 import { css } from '@linaria/core';
-import useToggleTheme from '@/hooks/useToggleTheme';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+
+import useToggleTheme from '@/hooks/useToggleTheme';
 
 const ThemeSwitcher: React.VFC = () => {
-  const { onToggleTheme } = useToggleTheme();
+  const { onToggleTheme, dark } = useToggleTheme();
 
   return (
     <button onClick={onToggleTheme} className={ButtonStyles}>
-      <FormattedMessage defaultMessage="Toggle dark Theme" />
+      {dark ? '🌞' : '🌚'}
     </button>
   );
 };
 
 export default ThemeSwitcher;
 
-const ButtonStyles = css``;
+const ButtonStyles = css`
+  font-size: var(--font-size-xl);
+`;
