@@ -1,3 +1,3 @@
-const POSTS_LIMIT = 10;
+const POSTS_LIMIT = 1;
 
 export { POSTS_LIMIT };
