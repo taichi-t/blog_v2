@@ -37,6 +37,7 @@
     "react/react-in-jsx-scope": "off",
     "react/no-children-prop": "off",
     "simple-import-sort/imports": "warn",
-    "simple-import-sort/exports": "warn"
+    "simple-import-sort/exports": "warn",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }
