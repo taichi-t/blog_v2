@@ -44,7 +44,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { page } = query;
   const skipByPagination = page && Number(page) * POSTS_LIMIT;
   const skipBydefault = 0;
-  console.log(skipByPagination);
   const [
     translations,
     { tags },
