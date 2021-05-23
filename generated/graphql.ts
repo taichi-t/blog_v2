@@ -5117,20 +5117,41 @@ export enum _SystemDateTimeFieldVariation {
   Combined = 'combined',
 }
 
-export type GetPostsByPageQueryVariables = Exact<{
+export type PostSummaryFieldsFragment = { __typename?: 'Post' } & Pick<
+  Post,
+  'title' | 'updatedAt' | 'createdAt' | 'excerpt' | 'slug'
+>;
+
+export type PostDetailsFieldsFragment = { __typename?: 'Post' } & Pick<
+  Post,
+  'content' | 'id' | 'createdAt' | 'updatedAt'
+> & { tags: Array<{ __typename?: 'Tag' } & Pick<Tag, 'name' | 'id' | 'slug'>> };
+
+export type TagFieldsFragment = { __typename?: 'Tag' } & Pick<
+  Tag,
+  'name' | 'id' | 'slug'
+>;
+
+export type PostCountFieldsFragment = { __typename?: 'PostConnection' } & {
+  aggregate: { __typename?: 'Aggregate' } & Pick<Aggregate, 'count'>;
+};
+
+export type GetIndexContentQueryVariables = Exact<{
   locales: Array<Locale> | Locale;
   orderBy: PostOrderByInput;
   skip: Scalars['Int'];
   limit: Scalars['Int'];
 }>;
 
-export type GetPostsByPageQuery = { __typename?: 'Query' } & {
+export type GetIndexContentQuery = { __typename?: 'Query' } & {
   posts: Array<
     { __typename?: 'Post' } & Pick<
       Post,
       'title' | 'updatedAt' | 'createdAt' | 'excerpt' | 'slug'
     >
   >;
+  tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment>;
+  postsConnection: { __typename?: 'PostConnection' } & PostCountFieldsFragment;
 };
 
 export type GetPostBySlugQueryVariables = Exact<{
@@ -5140,19 +5161,10 @@ export type GetPostBySlugQueryVariables = Exact<{
 
 export type GetPostBySlugQuery = { __typename?: 'Query' } & {
   post?: Maybe<
-    { __typename?: 'Post' } & Pick<
-      Post,
-      'content' | 'id' | 'createdAt' | 'updatedAt'
-    > & {
-        tags: Array<{ __typename?: 'Tag' } & Pick<Tag, 'name' | 'id' | 'slug'>>;
-      }
+    { __typename?: 'Post' } & {
+      tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment>;
+    } & PostDetailsFieldsFragment
   >;
-};
-
-export type GetTagsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetTagsQuery = { __typename?: 'Query' } & {
-  tags: Array<{ __typename?: 'Tag' } & Pick<Tag, 'name' | 'id' | 'slug'>>;
 };
 
 export type GetPostsByTagQueryVariables = Exact<{
@@ -5162,24 +5174,47 @@ export type GetPostsByTagQueryVariables = Exact<{
 }>;
 
 export type GetPostsByTagQuery = { __typename?: 'Query' } & {
-  posts: Array<
-    { __typename?: 'Post' } & Pick<
-      Post,
-      'content' | 'title' | 'slug' | 'id' | 'createdAt'
-    >
-  >;
+  posts: Array<{ __typename?: 'Post' } & PostSummaryFieldsFragment>;
 };
 
-export type GetPostsCountQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetPostsCountQuery = { __typename?: 'Query' } & {
-  postsConnection: { __typename?: 'PostConnection' } & {
-    aggregate: { __typename?: 'Aggregate' } & Pick<Aggregate, 'count'>;
-  };
-};
-
-export const GetPostsByPageDocument = gql`
-  query GetPostsByPage(
+export const PostSummaryFieldsFragmentDoc = gql`
+  fragment postSummaryFields on Post {
+    title
+    updatedAt(variation: BASE)
+    createdAt(variation: BASE)
+    excerpt
+    slug
+  }
+`;
+export const PostDetailsFieldsFragmentDoc = gql`
+  fragment postDetailsFields on Post {
+    content
+    id
+    tags(orderBy: name_DESC) {
+      name
+      id
+      slug
+    }
+    createdAt(variation: BASE)
+    updatedAt(variation: BASE)
+  }
+`;
+export const TagFieldsFragmentDoc = gql`
+  fragment tagFields on Tag {
+    name
+    id
+    slug
+  }
+`;
+export const PostCountFieldsFragmentDoc = gql`
+  fragment postCountFields on PostConnection {
+    aggregate {
+      count
+    }
+  }
+`;
+export const GetIndexContentDocument = gql`
+  query GetIndexContent(
     $locales: [Locale!]!
     $orderBy: PostOrderByInput!
     $skip: Int!
@@ -5192,31 +5227,27 @@ export const GetPostsByPageDocument = gql`
       excerpt
       slug
     }
+    tags {
+      ...tagFields
+    }
+    postsConnection {
+      ...postCountFields
+    }
   }
+  ${TagFieldsFragmentDoc}
+  ${PostCountFieldsFragmentDoc}
 `;
 export const GetPostBySlugDocument = gql`
   query GetPostBySlug($slug: String!, $locales: [Locale!]!) {
     post(where: { slug: $slug }, locales: $locales) {
-      content
-      id
+      ...postDetailsFields
       tags(orderBy: name_DESC) {
-        name
-        id
-        slug
+        ...tagFields
       }
-      createdAt(variation: BASE)
-      updatedAt(variation: BASE)
     }
   }
-`;
-export const GetTagsDocument = gql`
-  query GetTags {
-    tags {
-      name
-      id
-      slug
-    }
-  }
+  ${PostDetailsFieldsFragmentDoc}
+  ${TagFieldsFragmentDoc}
 `;
 export const GetPostsByTagDocument = gql`
   query GetPostsByTag(
@@ -5229,22 +5260,10 @@ export const GetPostsByTagDocument = gql`
       locales: $locales
       orderBy: $orderBy
     ) {
-      content
-      title
-      slug
-      id
-      createdAt(variation: BASE)
+      ...postSummaryFields
     }
   }
-`;
-export const GetPostsCountDocument = gql`
-  query GetPostsCount {
-    postsConnection {
-      aggregate {
-        count
-      }
-    }
-  }
+  ${PostSummaryFieldsFragmentDoc}
 `;
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
@@ -5256,13 +5275,13 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
-    GetPostsByPage(
-      variables: GetPostsByPageQueryVariables,
+    GetIndexContent(
+      variables: GetIndexContentQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GetPostsByPageQuery> {
+    ): Promise<GetIndexContentQuery> {
       return withWrapper(() =>
-        client.request<GetPostsByPageQuery>(
-          GetPostsByPageDocument,
+        client.request<GetIndexContentQuery>(
+          GetIndexContentDocument,
           variables,
           requestHeaders
         )
@@ -5280,14 +5299,6 @@ export function getSdk(
         )
       );
     },
-    GetTags(
-      variables?: GetTagsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GetTagsQuery> {
-      return withWrapper(() =>
-        client.request<GetTagsQuery>(GetTagsDocument, variables, requestHeaders)
-      );
-    },
     GetPostsByTag(
       variables: GetPostsByTagQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -5295,18 +5306,6 @@ export function getSdk(
       return withWrapper(() =>
         client.request<GetPostsByTagQuery>(
           GetPostsByTagDocument,
-          variables,
-          requestHeaders
-        )
-      );
-    },
-    GetPostsCount(
-      variables?: GetPostsCountQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
-    ): Promise<GetPostsCountQuery> {
-      return withWrapper(() =>
-        client.request<GetPostsCountQuery>(
-          GetPostsCountDocument,
           variables,
           requestHeaders
         )

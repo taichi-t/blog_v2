@@ -1,4 +1,36 @@
-query GetPostsByPage(
+fragment postSummaryFields on Post {
+  title
+  updatedAt(variation: BASE)
+  createdAt(variation: BASE)
+  excerpt
+  slug
+}
+
+fragment postDetailsFields on Post {
+  content
+  id
+  tags(orderBy: name_DESC) {
+    name
+    id
+    slug
+  }
+  createdAt(variation: BASE)
+  updatedAt(variation: BASE)
+}
+
+fragment tagFields on Tag {
+  name
+  id
+  slug
+}
+
+fragment postCountFields on PostConnection {
+  aggregate {
+    count
+  }
+}
+
+query GetIndexContent(
   $locales: [Locale!]!
   $orderBy: PostOrderByInput!
   $skip: Int!
@@ -11,27 +43,20 @@ query GetPostsByPage(
     excerpt
     slug
   }
+  tags {
+    ...tagFields
+  }
+  postsConnection {
+    ...postCountFields
+  }
 }
 
 query GetPostBySlug($slug: String!, $locales: [Locale!]!) {
   post(where: { slug: $slug }, locales: $locales) {
-    content
-    id
+    ...postDetailsFields
     tags(orderBy: name_DESC) {
-      name
-      id
-      slug
+      ...tagFields
     }
-    createdAt(variation: BASE)
-    updatedAt(variation: BASE)
-  }
-}
-
-query GetTags {
-  tags {
-    name
-    id
-    slug
   }
 }
 
@@ -45,18 +70,6 @@ query GetPostsByTag(
     locales: $locales
     orderBy: $orderBy
   ) {
-    content
-    title
-    slug
-    id
-    createdAt(variation: BASE)
-  }
-}
-
-query GetPostsCount {
-  postsConnection {
-    aggregate {
-      count
-    }
+    ...postSummaryFields
   }
 }
