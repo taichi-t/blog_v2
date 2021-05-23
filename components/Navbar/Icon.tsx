@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Image from 'next/image';
 import React from 'react';
 
 type Props = {
@@ -14,7 +15,13 @@ const Icon = React.forwardRef<HTMLAnchorElement, Props>(
   ({ href, onClick, ...rest }, ref) => {
     return (
       <a href={href} ref={ref} onClick={onClick} {...rest}>
-        <img src="/images/logo.png" alt="me" width="100%" height="100%" />
+        <Image
+          src="/images/logo.png"
+          alt="me"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        />
       </a>
     );
   }
