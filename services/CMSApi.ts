@@ -2,21 +2,15 @@ import { GraphQLClient } from 'graphql-request';
 
 import { Locales } from '@/constants/locales';
 import {
+  GetIndexContentDocument,
+  GetIndexContentQuery,
+  GetIndexContentQueryVariables,
   GetPostBySlugDocument,
   GetPostBySlugQuery,
   GetPostBySlugQueryVariables,
-  GetPostsByPageDocument,
-  GetPostsByPageQuery,
-  GetPostsByPageQueryVariables,
   GetPostsByTagDocument,
   GetPostsByTagQuery,
   GetPostsByTagQueryVariables,
-  GetPostsCountDocument,
-  GetPostsCountQuery,
-  GetPostsCountQueryVariables,
-  GetTagsDocument,
-  GetTagsQuery,
-  GetTagsQueryVariables,
   Locale,
   PostOrderByInput,
 } from '@/generated/graphql';
@@ -29,16 +23,16 @@ class CMSApi {
     );
   }
 
-  getPostsByPage = async (
+  getIndexContent = async (
     skip: number,
     locale: Locales,
     orderBy: PostOrderByInput,
     limit: number
-  ): Promise<GetPostsByPageQuery> => {
+  ): Promise<GetIndexContentQuery> => {
     const response = await this.graphQLClient.request<
-      GetPostsByPageQuery,
-      GetPostsByPageQueryVariables
-    >(GetPostsByPageDocument, {
+      GetIndexContentQuery,
+      GetIndexContentQueryVariables
+    >(GetIndexContentDocument, {
       // TODO:
       //replace メソッドをconvert...関数に含める
       locales: [locale.replace('-', '_') as Locale],
@@ -74,22 +68,6 @@ class CMSApi {
       locales: locale,
       tagSlug,
     });
-    return response;
-  };
-
-  getTags = async (): Promise<GetTagsQuery> => {
-    const response = await this.graphQLClient.request<
-      GetTagsQuery,
-      GetTagsQueryVariables
-    >(GetTagsDocument);
-    return response;
-  };
-
-  getPostsCount = async (): Promise<GetPostsCountQuery> => {
-    const response = await this.graphQLClient.request<
-      GetPostsCountQuery,
-      GetPostsCountQueryVariables
-    >(GetPostsCountDocument);
     return response;
   };
 }
