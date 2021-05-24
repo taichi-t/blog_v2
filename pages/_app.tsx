@@ -32,8 +32,12 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
           if (error.code === 'MISSING_TRANSLATION') return;
           throw error;
         }}>
-        <Navbar />
-        <Component {...pageProps} />
+        <header>
+          <Navbar />
+        </header>
+        <main>
+          <Component {...pageProps} />
+        </main>
       </IntlProvider>
     </>
   );
