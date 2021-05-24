@@ -1,5 +1,10 @@
+import { css, cx } from '@linaria/core';
 import { styled } from '@linaria/react';
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import { Border } from '@/components/shered';
+import Link from 'next/link';
 
 type Props = {
   headingsArray: {
@@ -7,21 +12,55 @@ type Props = {
     id: string;
     depth: number;
   }[];
-};
+} & JSX.IntrinsicElements['ul'];
 
-const TableOfContents: React.VFC<Props> = ({ headingsArray }) => {
-  return (
-    <ul>
-      {headingsArray.map((heading) => (
-        <Heading key={heading.id} depth={heading.depth}>
-          <a href={`#${heading.id}`}>{heading.title}</a>
-        </Heading>
-      ))}
-    </ul>
-  );
-};
+const TableOfContents = React.forwardRef<HTMLUListElement, Props>(
+  ({ headingsArray, ...rest }, ref) => {
+    const handleSmoothScrollByHash = React.useCallback(
+      (
+        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+        id: string | null
+      ) => {
+        e.preventDefault();
+        if (!id) return;
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      },
+      []
+    );
+
+    return (
+      <ul ref={ref} {...rest} className={cx(HeadingsLayout, Border)}>
+        <HeadingsTitle>
+          <FormattedMessage defaultMessage="Table of contens" />
+        </HeadingsTitle>
+        {headingsArray.map((heading) => (
+          <Heading key={heading.id} depth={heading.depth}>
+            <Link href={`#${heading.id}`} passHref>
+              <a onClick={(e) => handleSmoothScrollByHash(e, heading.id)}>
+                {heading.title}
+              </a>
+            </Link>
+          </Heading>
+        ))}
+      </ul>
+    );
+  }
+);
+
+TableOfContents.displayName = 'TableOfContents';
 
 export default TableOfContents;
+
+const HeadingsLayout = css`
+  padding: var(--spacing-size-xs);
+  background-color: var(--color-paper);
+  width: 30rem;
+  margin: 0;
+`;
+
+const HeadingsTitle = styled.h2`
+  margin: 0;
+`;
 
 const Heading = styled.li<{ depth: number }>`
   margin-left: ${({ depth }) => depth}em;
@@ -29,11 +68,14 @@ const Heading = styled.li<{ depth: number }>`
   font-size: ${({ depth }) =>
     depth === 0 ? 'var(--font-size-md)' : 'inherit'};
   font-weight: bold;
-  /* list-style: none; */
+  list-style: none;
   &:hover {
     background-color: var(--color-paper);
   }
   a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-decoration: none;
     display: block;
   }

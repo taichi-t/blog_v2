@@ -4,17 +4,41 @@ import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 import slug from 'rehype-slug';
 import gfm from 'remark-gfm';
+import { css } from '@linaria/core';
 
 import MarkdownElements, { gfmMarkdownStyles } from '@/components/Markdown';
 import TableOfContents from '@/components/TableOfContents';
+import ContentsSwich from '@/components/TableOfContents/ContentsSwich';
 import { DEFALUTL_LOCALE, Locales } from '@/constants/locales';
 import { GetPostBySlugQuery } from '@/generated/graphql';
 import getFormattedHeadingsArray from '@/helpers/getFormattedHeadingsArray';
 import cmsApi from '@/services/CMSApi';
+import { usePopper } from 'react-popper';
 
 type Props = GetPostBySlugQuery;
 
 const PostPage: FC<Props> = ({ post }) => {
+  const [
+    referenceElement,
+    setReferenceElement,
+  ] = React.useState<HTMLButtonElement | null>(null);
+  const [
+    popperElement,
+    setPopperElement,
+  ] = React.useState<HTMLUListElement | null>(null);
+
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'top',
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 10],
+        },
+      },
+    ],
+  });
+  const [isOpenPopper, setIsOpenPopper] = React.useState(false);
   const markdownRef = React.useRef<HTMLDivElement | null>(null);
   const [headingsArray, setHeadingsArray] = React.useState<
     | {
@@ -36,9 +60,13 @@ const PostPage: FC<Props> = ({ post }) => {
     }
   }, [post]);
 
+  const handleTogglePopper = () => {
+    setIsOpenPopper(!isOpenPopper);
+  };
+
   return (
     <>
-      <div ref={markdownRef}>
+      <article ref={markdownRef} className={MarkdownLayout}>
         <ReactMarkdown
           remarkPlugins={[gfm]}
           rehypePlugins={[slug]}
@@ -46,8 +74,22 @@ const PostPage: FC<Props> = ({ post }) => {
           components={MarkdownElements}
           className={gfmMarkdownStyles}
         />
+      </article>
+
+      <div className={TableOfContentsSwichLayout}>
+        {isOpenPopper && (
+          <>
+            <TableOfContents
+              headingsArray={headingsArray}
+              ref={setPopperElement}
+              style={styles.popper}
+              {...attributes.popper}
+            />
+          </>
+        )}
+
+        <ContentsSwich ref={setReferenceElement} onClick={handleTogglePopper} />
       </div>
-      <TableOfContents headingsArray={headingsArray} />
     </>
   );
 };
@@ -77,3 +119,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 export default PostPage;
+
+const TableOfContentsSwichLayout = css`
+  position: fixed;
+  bottom: 15%;
+  right: 20%;
+`;
+
+const MarkdownLayout = css`
+  padding: var(--spacing-size-xs);
+`;
