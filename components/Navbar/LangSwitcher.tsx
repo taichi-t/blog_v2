@@ -15,12 +15,12 @@ const LangSwitcher: React.VFC = () => {
     </NextLink>
   ));
 
-  return <div className={Layout}>{linkComponents}</div>;
+  return <div className={layout}>{linkComponents}</div>;
 };
 
 export default LangSwitcher;
 
-const Layout = css`
+const layout = css`
   font-weight: bold;
   font-size: var(--font-size-lg);
   & > :nth-child(n):not(:last-of-type):after {

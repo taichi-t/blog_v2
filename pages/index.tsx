@@ -7,6 +7,8 @@ import { POSTS_LIMIT } from '@/constants/meta';
 import { GetIndexContentQuery, PostOrderByInput } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
+import Profile from '@/components/Profile';
+import { css } from '@linaria/core';
 
 type Props = {
   locale: Locales;
@@ -21,8 +23,21 @@ const Index: NextPage<Props> = ({ posts }) => {
     );
   });
 
-  return <div>{postLinkComponents}</div>;
+  return (
+    <div className={root}>
+      <Profile />
+
+      {postLinkComponents}
+    </div>
+  );
 };
+
+const root = css`
+  & > :nth-of-type(n) {
+    margin: 0 auto;
+    margin-bottom: var(--spacing-size-lg);
+  }
+`;
 
 export const getServerSideProps: GetServerSideProps = async ({
   locale = DEFALUTL_LOCALE,

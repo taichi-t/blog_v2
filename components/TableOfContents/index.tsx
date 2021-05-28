@@ -3,7 +3,7 @@ import { styled } from '@linaria/react';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Border } from '@/components/shered';
+import { border } from '@/components/shered';
 import Link from 'next/link';
 
 type Props = {
@@ -29,7 +29,7 @@ const TableOfContents = React.forwardRef<HTMLUListElement, Props>(
     );
 
     return (
-      <ul ref={ref} {...rest} className={cx(HeadingsLayout, Border)}>
+      <ul ref={ref} {...rest} className={cx(HeadingsLayout, border)}>
         <HeadingsTitle>
           <FormattedMessage defaultMessage="Table of contens" />
         </HeadingsTitle>
@@ -69,6 +69,9 @@ const Heading = styled.li<{ depth: number }>`
     depth === 0 ? 'var(--font-size-md)' : 'inherit'};
   font-weight: bold;
   list-style: none;
+  & > :not(last-of-type):nth-of-type(n) {
+    margin: 1rem 0;
+  }
   &:hover {
     background-color: var(--color-paper);
   }

@@ -14,6 +14,8 @@ import { GetPostBySlugQuery } from '@/generated/graphql';
 import getFormattedHeadingsArray from '@/helpers/getFormattedHeadingsArray';
 import cmsApi from '@/services/CMSApi';
 import { usePopper } from 'react-popper';
+import translationApi from '@/services/TranslationApi';
+import { BREAKPOINTS } from '@/constants/breakpoints';
 
 type Props = GetPostBySlugQuery;
 
@@ -66,7 +68,7 @@ const PostPage: FC<Props> = ({ post }) => {
 
   return (
     <>
-      <article ref={markdownRef} className={MarkdownLayout}>
+      <article ref={markdownRef} className={markdownLayout}>
         <ReactMarkdown
           remarkPlugins={[gfm]}
           rehypePlugins={[slug]}
@@ -76,16 +78,14 @@ const PostPage: FC<Props> = ({ post }) => {
         />
       </article>
 
-      <div className={TableOfContentsSwichLayout}>
+      <div className={tableOfContentsSwichLayout}>
         {isOpenPopper && (
-          <>
-            <TableOfContents
-              headingsArray={headingsArray}
-              ref={setPopperElement}
-              style={styles.popper}
-              {...attributes.popper}
-            />
-          </>
+          <TableOfContents
+            headingsArray={headingsArray}
+            ref={setPopperElement}
+            style={styles.popper}
+            {...attributes.popper}
+          />
         )}
 
         <ContentsSwich ref={setReferenceElement} onClick={handleTogglePopper} />
@@ -102,10 +102,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     return { notFound: true };
   }
 
-  const { post } = await cmsApi.getPostBySlug(
-    locale as Locales,
-    slug as string
-  );
+  const [translations, { post }] = await Promise.all([
+    // TODO: cache translations
+    translationApi.getTranslationsByLanguageKey(locale),
+    cmsApi.getPostBySlug(locale as Locales, slug as string),
+  ]);
 
   if (!post) {
     return { notFound: true };
@@ -113,19 +114,23 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      post: post,
+      post,
+      locale,
+      translations,
     },
   };
 };
 
 export default PostPage;
 
-const TableOfContentsSwichLayout = css`
+const tableOfContentsSwichLayout = css`
   position: fixed;
-  bottom: 15%;
-  right: 20%;
+  bottom: 10%;
+  right: 10%;
+  ${BREAKPOINTS.MOBILE} {
+    bottom: 5%;
+    right: 5%;
+  }
 `;
 
-const MarkdownLayout = css`
-  padding: var(--spacing-size-xs);
-`;
+const markdownLayout = css``;

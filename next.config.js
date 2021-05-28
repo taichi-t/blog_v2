@@ -48,6 +48,12 @@ const config = withPrefresh({
       ],
     });
 
+    config.module.rules.push({
+      test: /\.(svg)$/,
+      exclude: /node_modules/,
+      loader: 'svg-react-loader',
+    });
+
     // Move Preact into the framework chunk instead of duplicating in routes:
     const splitChunks = config.optimization && config.optimization.splitChunks;
     if (splitChunks) {

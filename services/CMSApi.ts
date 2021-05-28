@@ -33,8 +33,6 @@ class CMSApi {
       GetIndexContentQuery,
       GetIndexContentQueryVariables
     >(GetIndexContentDocument, {
-      // TODO:
-      //replace メソッドをconvert...関数に含める
       locales: [locale.replace('-', '_') as Locale],
       orderBy,
       skip,
