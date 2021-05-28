@@ -108,6 +108,7 @@ export const global = css`
       --spacing-size-base: 3.2rem;
       --spacing-size-sm: 1.6rem;
       --spacing-size-xs: 0.8rem;
+      --spacing-size-xxs: 0.4rem;
     }
 
     //override root color valiable when darkmode
@@ -154,7 +155,6 @@ export const global = css`
     body {
       font-size: var(--font-size-base);
       font-family: var(--font-family-body);
-      line-height: 1.7;
       max-width: 980px;
       padding: 0 1rem;
       margin: 0 auto;
@@ -167,6 +167,14 @@ export const global = css`
       color: var(--color-opacityBlue);
       text-decoration: underline;
     }
+    p {
+      margin: 0;
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
 
     button {
       background-color: transparent;
@@ -175,6 +183,16 @@ export const global = css`
       outline: none;
       padding: 0;
       appearance: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
     }
 
     // nprogress bar

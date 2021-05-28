@@ -8,12 +8,12 @@ import ThemeSwitcher from './ThemeSwicher';
 
 const Navbar: React.VFC = () => {
   return (
-    <nav className={NavbarLayout}>
+    <nav className={navbarLayout}>
       <Link href="/" passHref shallow>
         <Icon />
       </Link>
 
-      <div className={SwitchLayout}>
+      <div className={switchLayout}>
         <LangSwitcher />
         <ThemeSwitcher />
       </div>
@@ -23,13 +23,13 @@ const Navbar: React.VFC = () => {
 
 export default Navbar;
 
-const NavbarLayout = css`
+const navbarLayout = css`
   display: grid;
   grid-template-columns: 100px 1fr;
   align-items: center;
 `;
 
-const SwitchLayout = css`
+const switchLayout = css`
   grid-column: 3 / 3;
   display: flex;
   align-items: center;

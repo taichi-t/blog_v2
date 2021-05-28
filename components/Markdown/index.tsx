@@ -17,6 +17,7 @@ export const gfmMarkdownStyles = css`
   -webkit-text-size-adjust: 100%;
   word-wrap: break-word;
   font-size: var(--font-size-md);
+  line-height: 1.7;
 
   & code[class*=\"language-\"] {
     font-family: var(--font-family-code) !important;
