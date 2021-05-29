@@ -4,7 +4,7 @@
   "author": "Taichi Tsujioka",
   "scripts": {
     "dev": "next dev",
-    "clean": "rm -rf .next",
+    "clean": "rm -rf .next && rm -rf .linaria-cache",
     "build": "next build",
     "start": "next start",
     "lint": "eslint '**/*.{tsx,ts,js,jsx}' --ignore-path .eslintignore",

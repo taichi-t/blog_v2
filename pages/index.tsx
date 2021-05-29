@@ -17,7 +17,7 @@ type Props = {
 const Index: NextPage<Props> = ({ posts }) => {
   const postLinkComponents = posts.map((post) => {
     return (
-      <Link href={`/posts/${post.slug}`} key={post.slug}>
+      <Link href="/posts/[slug]`" key={post.slug} as={`/posts/${post.slug}`}>
         {post.title}
       </Link>
     );
