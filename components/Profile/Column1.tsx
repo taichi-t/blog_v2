@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Image from 'next/image';
 import { styled } from '@linaria/react';
+import Image from 'next/image';
+import * as React from 'react';
 
 const Column1 = () => {
   return (

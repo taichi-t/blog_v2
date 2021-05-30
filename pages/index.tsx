@@ -1,33 +1,28 @@
+import { css } from '@linaria/core';
 import { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
 import * as React from 'react';
 
+import PostListItem from '@/components/PostListItem';
+import Profile from '@/components/Profile';
 import { DEFALUTL_LOCALE, Locales } from '@/constants/locales';
 import { POSTS_LIMIT } from '@/constants/meta';
 import { GetIndexContentQuery, PostOrderByInput } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
-import Profile from '@/components/Profile';
-import { css } from '@linaria/core';
 
 type Props = {
   locale: Locales;
 } & GetIndexContentQuery;
 
 const Index: NextPage<Props> = ({ posts }) => {
-  const postLinkComponents = posts.map((post) => {
-    return (
-      <Link href="/posts/[slug]`" key={post.slug} as={`/posts/${post.slug}`}>
-        {post.title}
-      </Link>
-    );
-  });
-
   return (
     <div className={root}>
       <Profile />
-
-      {postLinkComponents}
+      <ul className={listLayout}>
+        {posts.map((post) => {
+          return <PostListItem data={post} key={post.id} />;
+        })}
+      </ul>
     </div>
   );
 };
@@ -36,6 +31,12 @@ const root = css`
   & > :nth-of-type(n) {
     margin: 0 auto;
     margin-bottom: var(--spacing-size-lg);
+  }
+`;
+
+const listLayout = css`
+  & > :not(:last-of-type):nth-of-type(n) {
+    margin-bottom: var(--spacing-size-md);
   }
 `;
 

@@ -1,8 +1,13 @@
 import { styled } from '@linaria/react';
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const Description = () => {
-  return <Text>新しいものが好き 💻</Text>;
+  return (
+    <Text>
+      <FormattedMessage defaultMessage="I love learing new technologies" /> 💻
+    </Text>
+  );
 };
 
 export default Description;

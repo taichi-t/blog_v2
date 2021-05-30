@@ -1,8 +1,9 @@
-import * as React from 'react';
-import GithubSvg from '@/public/images/github.svg';
-import TwitterSvg from '@/public/images/twitter.svg';
-import InstaGramSvg from '@/public/images/instagram.svg';
 import { css } from '@linaria/core';
+import * as React from 'react';
+
+import GithubSvg from '@/public/images/github.svg';
+import InstaGramSvg from '@/public/images/instagram.svg';
+import TwitterSvg from '@/public/images/twitter.svg';
 
 const SNS = () => {
   return (
@@ -32,6 +33,10 @@ const svg = css`
   fill: var(--color-primaryText);
   height: var(--font-size-xl);
   width: var(--font-size-xl);
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
 `;
 
 const root = css`

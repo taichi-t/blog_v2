@@ -1,10 +1,10 @@
 import { css, cx } from '@linaria/core';
 import { styled } from '@linaria/react';
+import Link from 'next/link';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { border } from '@/components/shered';
-import Link from 'next/link';
+import { borderStyle } from '@/components/shered';
 
 type Props = {
   headingsArray: {
@@ -29,7 +29,7 @@ const TableOfContents = React.forwardRef<HTMLUListElement, Props>(
     );
 
     return (
-      <ul ref={ref} {...rest} className={cx(HeadingsLayout, border)}>
+      <ul ref={ref} {...rest} className={cx(root, borderStyle)}>
         <HeadingsTitle>
           <FormattedMessage defaultMessage="Table of contens" />
         </HeadingsTitle>
@@ -51,15 +51,14 @@ TableOfContents.displayName = 'TableOfContents';
 
 export default TableOfContents;
 
-const HeadingsLayout = css`
+const root = css`
   padding: var(--spacing-size-xs);
   background-color: var(--color-paper);
   width: 30rem;
-  margin: 0;
 `;
 
 const HeadingsTitle = styled.h2`
-  margin: 0;
+  font-weight: bold;
 `;
 
 const Heading = styled.li<{ depth: number }>`
@@ -75,6 +74,7 @@ const Heading = styled.li<{ depth: number }>`
   &:hover {
     background-color: var(--color-paper);
   }
+
   a {
     white-space: nowrap;
     overflow: hidden;

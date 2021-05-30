@@ -1,21 +1,21 @@
+import { css } from '@linaria/core';
 import { GetServerSideProps } from 'next';
 import { FC } from 'react';
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
+import { usePopper } from 'react-popper';
 import slug from 'rehype-slug';
 import gfm from 'remark-gfm';
-import { css } from '@linaria/core';
 
 import MarkdownElements, { gfmMarkdownStyles } from '@/components/Markdown';
 import TableOfContents from '@/components/TableOfContents';
 import ContentsSwich from '@/components/TableOfContents/ContentsSwich';
+import { BREAKPOINTS } from '@/constants/breakpoints';
 import { DEFALUTL_LOCALE, Locales } from '@/constants/locales';
 import { GetPostBySlugQuery } from '@/generated/graphql';
 import getFormattedHeadingsArray from '@/helpers/getFormattedHeadingsArray';
 import cmsApi from '@/services/CMSApi';
-import { usePopper } from 'react-popper';
 import translationApi from '@/services/TranslationApi';
-import { BREAKPOINTS } from '@/constants/breakpoints';
 
 type Props = GetPostBySlugQuery;
 

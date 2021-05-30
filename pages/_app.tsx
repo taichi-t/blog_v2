@@ -68,7 +68,7 @@ export const global = css`
       --color-blue: #1a0dab;
       --color-bioret: rgba(102, 0, 53);
       --color-yellow: #f2bf5e;
-      --color-blue: #7ec9ed;
+      --color-blue: #52baeb;
       --color-bioret: #c1b4fb;
       --color-red: #ff6161;
       --color-green: #bada55;
@@ -149,7 +149,6 @@ export const global = css`
       font-size: 62.5%;
       color: var(--color-primaryText);
       background-color: var(--color-background);
-      /* This makes background change smoothly */
       transition: background-color 0.25s;
     }
     body {
@@ -193,6 +192,7 @@ export const global = css`
     h6 {
       margin: 0;
       padding: 0;
+      font-weight: normal;
     }
 
     // nprogress bar
