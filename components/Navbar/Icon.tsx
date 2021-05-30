@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { css } from '@linaria/core';
 import Image from 'next/image';
 import React from 'react';
 
@@ -21,6 +22,7 @@ const Icon = React.forwardRef<HTMLAnchorElement, Props>(
           width="100%"
           height="100%"
           loading="lazy"
+          className={iconStyle}
         />
       </a>
     );
@@ -30,3 +32,9 @@ const Icon = React.forwardRef<HTMLAnchorElement, Props>(
 Icon.displayName = 'Icon';
 
 export default Icon;
+
+const iconStyle = css`
+  &:hover {
+    opacity: 0.8;
+  }
+`;

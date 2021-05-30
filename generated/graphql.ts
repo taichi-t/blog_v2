@@ -5147,8 +5147,8 @@ export type GetIndexContentQuery = { __typename?: 'Query' } & {
   posts: Array<
     { __typename?: 'Post' } & Pick<
       Post,
-      'title' | 'updatedAt' | 'createdAt' | 'excerpt' | 'slug'
-    >
+      'id' | 'title' | 'updatedAt' | 'createdAt' | 'excerpt' | 'slug'
+    > & { tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment> }
   >;
   tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment>;
   postsConnection: { __typename?: 'PostConnection' } & PostCountFieldsFragment;
@@ -5221,11 +5221,15 @@ export const GetIndexContentDocument = gql`
     $limit: Int!
   ) {
     posts(locales: $locales, orderBy: $orderBy, skip: $skip, first: $limit) {
+      id
       title
       updatedAt(variation: BASE)
       createdAt(variation: BASE)
       excerpt
       slug
+      tags {
+        ...tagFields
+      }
     }
     tags {
       ...tagFields

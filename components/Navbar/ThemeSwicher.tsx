@@ -16,5 +16,6 @@ const ThemeSwitcher: React.VFC = () => {
 export default ThemeSwitcher;
 
 const ButtonStyles = css`
+  position: relative;
   font-size: var(--font-size-xl);
 `;

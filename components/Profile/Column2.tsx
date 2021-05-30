@@ -1,5 +1,6 @@
 import { css } from '@linaria/core';
 import * as React from 'react';
+
 import Description from './Description';
 import Name from './Name';
 import SNS from './SNS';

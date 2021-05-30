@@ -37,11 +37,15 @@ query GetIndexContent(
   $limit: Int!
 ) {
   posts(locales: $locales, orderBy: $orderBy, skip: $skip, first: $limit) {
+    id
     title
     updatedAt(variation: BASE)
     createdAt(variation: BASE)
     excerpt
     slug
+    tags {
+      ...tagFields
+    }
   }
   tags {
     ...tagFields

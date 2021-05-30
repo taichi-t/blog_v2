@@ -1,7 +1,8 @@
-import { styled } from '@linaria/react';
 import { cx } from '@linaria/core';
+import { styled } from '@linaria/react';
 import React from 'react';
-import { border, boxShadow } from '@/components/shered';
+
+import { borderStyle, boxShadowStyle } from '@/components/shered';
 
 type Props = JSX.IntrinsicElements['button'];
 
@@ -9,7 +10,7 @@ const ContentsSwitch = React.forwardRef<HTMLButtonElement, Props>(
   ({ onClick, ...rest }, ref) => {
     return (
       <Button
-        className={cx(border, boxShadow)}
+        className={cx(borderStyle, boxShadowStyle)}
         {...rest}
         ref={ref}
         onClick={onClick}>
