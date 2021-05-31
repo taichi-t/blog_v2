@@ -3,7 +3,6 @@ import Link from 'next/link';
 import * as React from 'react';
 import { FormattedDate } from 'react-intl';
 
-import { ellipsisTextStyle } from '@/components/shered';
 import Tags from '@/components/Tags';
 import { Post, TagFieldsFragment } from '@/generated/graphql';
 
@@ -22,10 +21,10 @@ const PostListItem: React.VFC<Props> = ({ data }) => {
         key={data.slug}
         as={`/posts/${data.slug}`}
         passHref>
-        <a className={cx(titleStyle, ellipsisTextStyle)}>{data.title}</a>
+        <a className={cx(titleStyle)}>{data.title}</a>
       </Link>
 
-      <h3 className={cx(excerptStyle, ellipsisTextStyle)}>{data.excerpt}</h3>
+      <h3 className={cx(excerptStyle)}>{data.excerpt}</h3>
 
       <FormattedDate
         value={data.createdAt}
@@ -64,7 +63,7 @@ const createdAtStyle = css`
 `;
 
 const root = css`
-  & > :nth-of-type(n) {
+  & > *:not(:last-child) {
     margin-bottom: var(--spacing-size-xs);
   }
 `;

@@ -42,7 +42,7 @@ const svg = css`
 const root = css`
   list-style: none;
   display: flex;
-  & > :not(:last-of-type):nth-of-type(n) {
+  & > *:not(:last-child) {
     margin-right: var(--spacing-size-sm);
   }
 `;

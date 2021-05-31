@@ -1,3 +1,4 @@
+import { BREAKPOINTS } from '@/constants/breakpoints';
 import { styled } from '@linaria/react';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -16,4 +17,7 @@ export default Name;
 const Text = styled.p`
   font-size: var(--font-size-xl);
   font-weight: bold;
+  ${BREAKPOINTS.MOBILE} {
+    font-size: var(--font-size-lg);
+  }
 `;

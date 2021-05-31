@@ -55,6 +55,9 @@ const root = css`
   padding: var(--spacing-size-xs);
   background-color: var(--color-paper);
   width: 30rem;
+  & > *:not(:last-child) {
+    margin-bottom: var(--spacing-size-xs);
+  }
 `;
 
 const HeadingsTitle = styled.h2`
@@ -68,9 +71,7 @@ const Heading = styled.li<{ depth: number }>`
     depth === 0 ? 'var(--font-size-md)' : 'inherit'};
   font-weight: bold;
   list-style: none;
-  & > :not(last-of-type):nth-of-type(n) {
-    margin: 1rem 0;
-  }
+
   &:hover {
     background-color: var(--color-paper);
   }

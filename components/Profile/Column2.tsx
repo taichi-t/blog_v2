@@ -1,3 +1,4 @@
+import { BREAKPOINTS } from '@/constants/breakpoints';
 import { css } from '@linaria/core';
 import * as React from 'react';
 
@@ -22,7 +23,12 @@ export default Column2;
 const root = css`
   text-align: left;
   display: grid;
-  & > *:nth-of-type(n) {
+  & > * {
     align-self: center;
+  }
+  ${BREAKPOINTS.MOBILE} {
+    & > *:not(:last-child) {
+      margin-bottom: var(--spacing-size-xs);
+    }
   }
 `;

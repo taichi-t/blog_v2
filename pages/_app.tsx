@@ -158,6 +158,13 @@ export const global = css`
       padding: 0 1rem;
       margin: 0 auto;
     }
+
+    #__next {
+      & > * {
+        margin-bottom: var(--spacing-size-sm);
+      }
+    }
+
     a {
       text-decoration: none;
       color: var(--color-blue);
