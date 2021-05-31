@@ -45,7 +45,7 @@ const Title = styled.h3`
 
 const root = css`
   margin: auto;
-  & > :not(:last-of-type):nth-of-type(n) {
+  & > *:not(:last-child) {
     margin-bottom: var(--spacing-size-xs);
   }
   & ${Title} {

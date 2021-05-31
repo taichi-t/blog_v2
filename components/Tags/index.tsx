@@ -22,7 +22,7 @@ const Tags: React.VFC<Props> = ({ tags }) => {
 export default Tags;
 
 const root = css`
-  & > :not(:last-of-type):nth-of-type(n) {
+  & > *:not(:last-child) {
     margin-right: 1em;
   }
 `;

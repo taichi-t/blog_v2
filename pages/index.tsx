@@ -9,6 +9,7 @@ import { POSTS_LIMIT } from '@/constants/meta';
 import { GetIndexContentQuery, PostOrderByInput } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
+import { BREAKPOINTS } from '@/constants/breakpoints';
 
 type Props = {
   locale: Locales;
@@ -28,14 +29,27 @@ const Index: NextPage<Props> = ({ posts }) => {
 };
 
 const root = css`
-  & > :nth-of-type(n) {
-    margin: 0 auto;
+  & > * {
     margin-bottom: var(--spacing-size-lg);
+  }
+  ${BREAKPOINTS.MOBILE} {
+    display: flex;
+    flex-direction: column;
+    & > :nth-child(1) {
+      order: 2;
+      margin-bottom: 0;
+    }
+    & > :nth-child(2) {
+      order: 1;
+      margin-bottom: calc(
+        25px + var(--spacing-size-lg)
+      ); //25px for space of curcle of the profile image
+    }
   }
 `;
 
 const listLayout = css`
-  & > :not(:last-of-type):nth-of-type(n) {
+  & > *:not(:last-child) {
     margin-bottom: var(--spacing-size-md);
   }
 `;

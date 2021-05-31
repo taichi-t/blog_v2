@@ -23,10 +23,10 @@ export default LangSwitcher;
 const layout = css`
   font-weight: bold;
   font-size: var(--font-size-lg);
-  & > :nth-child(n):not(:last-of-type):after {
+  & > *:not(:last-child):after {
     content: '/';
     color: var(--color-primaryText);
-    margin: 0 1rem;
+    margin: 0 var(--spacing-size-xs);
   }
 `;
 
