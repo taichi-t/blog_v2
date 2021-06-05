@@ -16,7 +16,12 @@ type Props = {
 const PostListItem: React.VFC<Props> = ({ data }) => {
   return (
     <li className={root}>
-      <Link href={'/[slug]'} key={data.slug} as={`/${data.slug}`} passHref>
+      <Link
+        href={'/[slug]'}
+        key={data.slug}
+        as={`/${data.slug}`}
+        passHref
+        prefetch={false}>
         <a className={cx(titleStyle)}>{data.title}</a>
       </Link>
 
