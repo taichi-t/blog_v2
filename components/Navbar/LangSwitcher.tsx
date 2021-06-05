@@ -3,6 +3,7 @@ import { styled } from '@linaria/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
+import { BREAKPOINTS } from '@/constants/breakpoints';
 
 import { LOCALES } from '@/constants/locales';
 
@@ -27,6 +28,9 @@ const layout = css`
     content: '/';
     color: var(--color-primaryText);
     margin: 0 var(--spacing-size-xs);
+  }
+  ${BREAKPOINTS.MOBILE} {
+    font-size: var(--font-size-md);
   }
 `;
 

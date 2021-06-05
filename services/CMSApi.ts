@@ -56,14 +56,14 @@ class CMSApi {
   };
 
   getPostsByTag = async (
-    locale: [Locale],
+    locale: Locales,
     tagSlug: string
   ): Promise<GetPostsByTagQuery> => {
     const response = await this.graphQLClient.request<
       GetPostsByTagQuery,
       GetPostsByTagQueryVariables
     >(GetPostsByTagDocument, {
-      locales: locale,
+      locales: [locale.replace('-', '_') as Locale],
       tagSlug,
     });
     return response;

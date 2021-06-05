@@ -1,9 +1,13 @@
 fragment postSummaryFields on Post {
+  id
   title
   updatedAt(variation: BASE)
   createdAt(variation: BASE)
   excerpt
   slug
+  tags {
+    ...tagFields
+  }
 }
 
 fragment postDetailsFields on Post {
@@ -70,7 +74,7 @@ query GetPostsByTag(
   $orderBy: PostOrderByInput
 ) {
   posts(
-    where: { tags_every: { slug: $tagSlug } }
+    where: { tags_some: { slug: $tagSlug } }
     locales: $locales
     orderBy: $orderBy
   ) {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { css, cx } from '@linaria/core';
+import { css } from '@linaria/core';
 import Image from 'next/image';
 import { BREAKPOINTS } from '@/constants/breakpoints';
 
@@ -11,7 +11,6 @@ const Column1 = () => {
         width="200px"
         height="200px"
         loading="lazy"
-        className={cx(imageStyle)}
         objectFit="contain"
       />
     </div>
@@ -39,5 +38,3 @@ const root = css`
     }
   }
 `;
-
-const imageStyle = css``;

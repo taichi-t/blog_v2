@@ -2736,10 +2736,9 @@ export type Post = Node & {
   seo?: Maybe<Seo>;
   /** Reference to Author */
   author?: Maybe<Author>;
-  /** Refer to posts. ex) #tags */
-  tags: Array<Tag>;
   /** Upload image that is an article of webpage */
   coverImage?: Maybe<Asset>;
+  tags: Array<Tag>;
   /** List of Post versions */
   history: Array<Version>;
 };
@@ -2787,6 +2786,10 @@ export type PostAuthorArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
+export type PostCoverImageArgs = {
+  locales?: Maybe<Array<Locale>>;
+};
+
 export type PostTagsArgs = {
   where?: Maybe<TagWhereInput>;
   orderBy?: Maybe<TagOrderByInput>;
@@ -2795,10 +2798,6 @@ export type PostTagsArgs = {
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
-  locales?: Maybe<Array<Locale>>;
-};
-
-export type PostCoverImageArgs = {
   locales?: Maybe<Array<Locale>>;
 };
 
@@ -2838,8 +2837,8 @@ export type PostCreateInput = {
   excerpt?: Maybe<Scalars['String']>;
   seo?: Maybe<SeoCreateOneInlineInput>;
   author?: Maybe<AuthorCreateOneInlineInput>;
-  tags?: Maybe<TagCreateManyInlineInput>;
   coverImage?: Maybe<AssetCreateOneInlineInput>;
+  tags?: Maybe<TagCreateManyInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: Maybe<PostCreateLocalizationsInput>;
 };
@@ -2999,10 +2998,10 @@ export type PostManyWhereInput = {
   date_gte?: Maybe<Scalars['Date']>;
   seo?: Maybe<SeoWhereInput>;
   author?: Maybe<AuthorWhereInput>;
+  coverImage?: Maybe<AssetWhereInput>;
   tags_every?: Maybe<TagWhereInput>;
   tags_some?: Maybe<TagWhereInput>;
   tags_none?: Maybe<TagWhereInput>;
-  coverImage?: Maybe<AssetWhereInput>;
 };
 
 export enum PostOrderByInput {
@@ -3037,8 +3036,8 @@ export type PostUpdateInput = {
   excerpt?: Maybe<Scalars['String']>;
   seo?: Maybe<SeoUpdateOneInlineInput>;
   author?: Maybe<AuthorUpdateOneInlineInput>;
-  tags?: Maybe<TagUpdateManyInlineInput>;
   coverImage?: Maybe<AssetUpdateOneInlineInput>;
+  tags?: Maybe<TagUpdateManyInlineInput>;
   /** Manage document localizations */
   localizations?: Maybe<PostUpdateLocalizationsInput>;
 };
@@ -3328,10 +3327,10 @@ export type PostWhereInput = {
   excerpt_not_ends_with?: Maybe<Scalars['String']>;
   seo?: Maybe<SeoWhereInput>;
   author?: Maybe<AuthorWhereInput>;
+  coverImage?: Maybe<AssetWhereInput>;
   tags_every?: Maybe<TagWhereInput>;
   tags_some?: Maybe<TagWhereInput>;
   tags_none?: Maybe<TagWhereInput>;
-  coverImage?: Maybe<AssetWhereInput>;
 };
 
 /** References Post record uniquely */
@@ -4272,7 +4271,7 @@ export type Tag = Node & {
   slug: Scalars['String'];
   /** Enter tags name */
   name: Scalars['String'];
-  post?: Maybe<Post>;
+  posts: Array<Post>;
   /** List of Tag versions */
   history: Array<Version>;
 };
@@ -4300,7 +4299,14 @@ export type TagPublishedByArgs = {
 };
 
 /** Refer to posts */
-export type TagPostArgs = {
+export type TagPostsArgs = {
+  where?: Maybe<PostWhereInput>;
+  orderBy?: Maybe<PostOrderByInput>;
+  skip?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
   locales?: Maybe<Array<Locale>>;
 };
 
@@ -4333,7 +4339,7 @@ export type TagCreateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   slug: Scalars['String'];
   name: Scalars['String'];
-  post?: Maybe<PostCreateOneInlineInput>;
+  posts?: Maybe<PostCreateManyInlineInput>;
 };
 
 export type TagCreateManyInlineInput = {
@@ -4474,7 +4480,9 @@ export type TagManyWhereInput = {
   name_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   name_not_ends_with?: Maybe<Scalars['String']>;
-  post?: Maybe<PostWhereInput>;
+  posts_every?: Maybe<PostWhereInput>;
+  posts_some?: Maybe<PostWhereInput>;
+  posts_none?: Maybe<PostWhereInput>;
 };
 
 export enum TagOrderByInput {
@@ -4495,7 +4503,7 @@ export enum TagOrderByInput {
 export type TagUpdateInput = {
   slug?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  post?: Maybe<PostUpdateOneInlineInput>;
+  posts?: Maybe<PostUpdateManyInlineInput>;
 };
 
 export type TagUpdateManyInlineInput = {
@@ -4678,7 +4686,9 @@ export type TagWhereInput = {
   name_ends_with?: Maybe<Scalars['String']>;
   /** All values not ending with the given string */
   name_not_ends_with?: Maybe<Scalars['String']>;
-  post?: Maybe<PostWhereInput>;
+  posts_every?: Maybe<PostWhereInput>;
+  posts_some?: Maybe<PostWhereInput>;
+  posts_none?: Maybe<PostWhereInput>;
 };
 
 /** References Tag record uniquely */
@@ -5119,8 +5129,8 @@ export enum _SystemDateTimeFieldVariation {
 
 export type PostSummaryFieldsFragment = { __typename?: 'Post' } & Pick<
   Post,
-  'title' | 'updatedAt' | 'createdAt' | 'excerpt' | 'slug'
->;
+  'id' | 'title' | 'updatedAt' | 'createdAt' | 'excerpt' | 'slug'
+> & { tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment> };
 
 export type PostDetailsFieldsFragment = { __typename?: 'Post' } & Pick<
   Post,
@@ -5177,14 +5187,26 @@ export type GetPostsByTagQuery = { __typename?: 'Query' } & {
   posts: Array<{ __typename?: 'Post' } & PostSummaryFieldsFragment>;
 };
 
+export const TagFieldsFragmentDoc = gql`
+  fragment tagFields on Tag {
+    name
+    id
+    slug
+  }
+`;
 export const PostSummaryFieldsFragmentDoc = gql`
   fragment postSummaryFields on Post {
+    id
     title
     updatedAt(variation: BASE)
     createdAt(variation: BASE)
     excerpt
     slug
+    tags {
+      ...tagFields
+    }
   }
+  ${TagFieldsFragmentDoc}
 `;
 export const PostDetailsFieldsFragmentDoc = gql`
   fragment postDetailsFields on Post {
@@ -5197,13 +5219,6 @@ export const PostDetailsFieldsFragmentDoc = gql`
     }
     createdAt(variation: BASE)
     updatedAt(variation: BASE)
-  }
-`;
-export const TagFieldsFragmentDoc = gql`
-  fragment tagFields on Tag {
-    name
-    id
-    slug
   }
 `;
 export const PostCountFieldsFragmentDoc = gql`
@@ -5260,7 +5275,7 @@ export const GetPostsByTagDocument = gql`
     $orderBy: PostOrderByInput
   ) {
     posts(
-      where: { tags_every: { slug: $tagSlug } }
+      where: { tags_some: { slug: $tagSlug } }
       locales: $locales
       orderBy: $orderBy
     ) {
