@@ -2,6 +2,7 @@ import { css } from '@linaria/core';
 import * as React from 'react';
 
 import { TagFieldsFragment } from '@/generated/graphql';
+import Link from 'next/link';
 
 type Props = {
   tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment>;
@@ -12,7 +13,9 @@ const Tags: React.VFC<Props> = ({ tags }) => {
     <ul className={root}>
       {tags.map((tag) => (
         <li key={tag.id} className={tagStyle}>
-          #{tag.name}
+          <Link href="/tags/[slug]" as={`/tags/${tag.slug}`} passHref>
+            <a>#{tag.name}</a>
+          </Link>
         </li>
       ))}
     </ul>
@@ -37,5 +40,9 @@ const tagStyle = css`
   border-radius: 3px;
   &:hover {
     opacity: 0.6;
+  }
+  & > a {
+    color: inherit;
+    text-decoration: none;
   }
 `;

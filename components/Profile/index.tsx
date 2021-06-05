@@ -39,5 +39,6 @@ const root = css`
     & > :nth-child(2) {
       margin-top: 50px;
     }
+    box-shadow: none;
   }
 `;

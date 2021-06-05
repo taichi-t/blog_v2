@@ -2,25 +2,20 @@ import { css } from '@linaria/core';
 import * as React from 'react';
 
 import GithubSvg from '@/public/images/github.svg';
-import InstaGramSvg from '@/public/images/instagram.svg';
 import TwitterSvg from '@/public/images/twitter.svg';
+import { SNS as SNSLINK } from '@/constants/sns';
 
 const SNS = () => {
   return (
     <ul className={root}>
       <li>
-        <a>
+        <a href={SNSLINK.GITHUB} target="_blank" rel="noopener noreferrer">
           <GithubSvg className={svg} />
         </a>
       </li>
       <li>
-        <a>
+        <a href={SNSLINK.TWITTER} target="_blank" rel="noopener noreferrer">
           <TwitterSvg className={svg} />
-        </a>
-      </li>
-      <li>
-        <a>
-          <InstaGramSvg className={svg} />
         </a>
       </li>
     </ul>
