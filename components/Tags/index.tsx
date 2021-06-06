@@ -13,7 +13,11 @@ const Tags: React.VFC<Props> = ({ tags }) => {
     <ul className={root}>
       {tags.map((tag) => (
         <li key={tag.id} className={tagStyle}>
-          <Link href="/tags/[slug]" as={`/tags/${tag.slug}`} passHref>
+          <Link
+            href="/tags/[slug]"
+            as={`/tags/${tag.slug}`}
+            passHref
+            prefetch={false}>
             <a>#{tag.name}</a>
           </Link>
         </li>
