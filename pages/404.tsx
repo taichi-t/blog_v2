@@ -12,10 +12,10 @@ const Custom404 = () => {
   const { locale } = useRouter();
   const url = useUrl();
   const metaDescription = WEBSITE.NOTFOUNDPAGE[
-    locale ?? DEFALUTL_LOCALE.replace('-', '_').toUpperCase()
+    (locale ?? DEFALUTL_LOCALE).replace('-', '_').toUpperCase()
   ].DESCRIPTION as string;
   const metaTitle = WEBSITE.NOTFOUNDPAGE[
-    locale ?? DEFALUTL_LOCALE.replace('-', '_').toUpperCase()
+    (locale ?? DEFALUTL_LOCALE).replace('-', '_').toUpperCase()
   ].TITLE as string;
   return (
     <>
