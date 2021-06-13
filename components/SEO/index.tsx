@@ -22,10 +22,12 @@ const SEO: React.VFC<Props> = ({
   return (
     <Head>
       <title>{title}</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
       <meta property="og:url" content={pageUrl} />
       <meta property="og:title" content={title} />
       <meta property="og:type" content={pageType} />
       <meta property="og:description" content={description} />
+      <meta name="description" content={description} />
       <meta property="og:image" content={imageUrl ?? '/images/logo.png'} />
       {/* 144px x 144px,4096 x 4096px, up to2MB */}
       {/* TODO: default image */}

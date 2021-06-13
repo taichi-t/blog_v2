@@ -68,7 +68,7 @@ export const global = css`
       --color-blue: #1a0dab;
       --color-bioret: rgba(102, 0, 53);
       --color-yellow: #f2bf5e;
-      --color-blue: #52baeb;
+      --color-blue: #528feb;
       --color-bioret: #c1b4fb;
       --color-red: #ff6161;
       --color-green: #bada55;
