@@ -1,28 +1,51 @@
+import SEO from '@/components/SEO';
+import { DEFALUTL_LOCALE } from '@/constants/locales';
+import { WEBSITE } from '@/constants/website';
+import useUrl from '@/hooks/useUrl';
 import { css } from '@linaria/core';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const Custom404 = () => {
+  const { locale } = useRouter();
+  const url = useUrl();
+  const metaDescription = WEBSITE.NOTFOUNDPAGE[
+    locale ?? DEFALUTL_LOCALE.replace('-', '_').toUpperCase()
+  ].DESCRIPTION as string;
+  const metaTitle = WEBSITE.NOTFOUNDPAGE[
+    locale ?? DEFALUTL_LOCALE.replace('-', '_').toUpperCase()
+  ].TITLE as string;
   return (
-    <div className={root}>
-      <p className={statusStyle}>
-        <span>4</span>
-        <span>0</span>
-        <span>4</span>
-      </p>
-      <FormattedMessage
-        defaultMessage="This page does not exist"
-        children={(text) => <p className={messageStyle}>{text}</p>}
+    <>
+      <SEO
+        title={`${metaTitle} - ${WEBSITE.NAME}`}
+        pageType={'blog'}
+        description={metaDescription}
+        locale={locale ?? DEFALUTL_LOCALE}
+        pageUrl={url}
       />
-      <FormattedMessage
-        defaultMessage="Return to Home Page"
-        children={(text) => (
-          <Link href="/" passHref shallow>
-            <a>{text}</a>
-          </Link>
-        )}
-      />
-    </div>
+      <div className={root}>
+        <p className={statusStyle}>
+          <span>4</span>
+          <span>0</span>
+          <span>4</span>
+        </p>
+        <FormattedMessage
+          defaultMessage="This page does not exist"
+          children={(text) => <p className={messageStyle}>{text}</p>}
+        />
+        <FormattedMessage
+          defaultMessage="Return to Home Page"
+          children={(text) => (
+            <Link href="/" passHref shallow>
+              <a>{text}</a>
+            </Link>
+          )}
+        />
+      </div>
+    </>
   );
 };
 

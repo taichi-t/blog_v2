@@ -10,21 +10,37 @@ import { GetIndexContentQuery, PostOrderByInput } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
 import { BREAKPOINTS } from '@/constants/breakpoints';
+import SEO from '@/components/SEO';
+import { WEBSITE } from '@/constants/website';
+import useUrl from '@/hooks/useUrl';
 
 type Props = {
   locale: Locales;
 } & GetIndexContentQuery;
 
-const Index: React.VFC<Props> = ({ posts }) => {
+const Index: React.VFC<Props> = ({ posts, locale }) => {
+  const url = useUrl();
+  const metaDescription = WEBSITE.INDEXPAGE[
+    locale.replace('-', '_').toUpperCase()
+  ].DESCRIPTION as string;
   return (
-    <div className={root}>
-      <Profile />
-      <ul className={listLayout}>
-        {posts.map((post) => {
-          return <PostListItem data={post} key={post.id} />;
-        })}
-      </ul>
-    </div>
+    <>
+      <SEO
+        title={WEBSITE.NAME}
+        pageType={'blog'}
+        description={metaDescription}
+        locale={locale}
+        pageUrl={url}
+      />
+      <div className={root}>
+        <Profile />
+        <ul className={listLayout}>
+          {posts.map((post) => {
+            return <PostListItem data={post} key={post.id} />;
+          })}
+        </ul>
+      </div>
+    </>
   );
 };
 

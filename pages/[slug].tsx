@@ -16,10 +16,16 @@ import { GetPostBySlugQuery } from '@/generated/graphql';
 import getFormattedHeadingsArray from '@/helpers/getFormattedHeadingsArray';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
+import useUrl from '@/hooks/useUrl';
+import { WEBSITE } from '@/constants/website';
+import SEO from '@/components/SEO';
 
-type Props = GetPostBySlugQuery;
+type Props = {
+  locale: string;
+} & GetPostBySlugQuery;
 
-const PostPage: FC<Props> = ({ post }) => {
+const PostPage: FC<Props> = ({ post, locale }) => {
+  const url = useUrl();
   const [
     referenceElement,
     setReferenceElement,
@@ -68,6 +74,13 @@ const PostPage: FC<Props> = ({ post }) => {
 
   return (
     <>
+      <SEO
+        title={`${post?.title ?? ''} - ${WEBSITE.NAME}`}
+        pageType={'article'}
+        description={post?.excerpt ?? ''}
+        locale={locale}
+        pageUrl={url}
+      />
       <article ref={markdownRef} className={markdownLayout}>
         <ReactMarkdown
           remarkPlugins={[gfm]}

@@ -13,6 +13,8 @@ fragment postSummaryFields on Post {
 fragment postDetailsFields on Post {
   content
   id
+  title
+  excerpt
   tags(orderBy: name_DESC) {
     name
     id

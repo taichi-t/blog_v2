@@ -5134,7 +5134,7 @@ export type PostSummaryFieldsFragment = { __typename?: 'Post' } & Pick<
 
 export type PostDetailsFieldsFragment = { __typename?: 'Post' } & Pick<
   Post,
-  'content' | 'id' | 'createdAt' | 'updatedAt'
+  'content' | 'id' | 'title' | 'excerpt' | 'createdAt' | 'updatedAt'
 > & { tags: Array<{ __typename?: 'Tag' } & Pick<Tag, 'name' | 'id' | 'slug'>> };
 
 export type TagFieldsFragment = { __typename?: 'Tag' } & Pick<
@@ -5212,6 +5212,8 @@ export const PostDetailsFieldsFragmentDoc = gql`
   fragment postDetailsFields on Post {
     content
     id
+    title
+    excerpt
     tags(orderBy: name_DESC) {
       name
       id

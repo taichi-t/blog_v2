@@ -9,20 +9,37 @@ import { GetPostsByTagQuery } from '@/generated/graphql';
 import cmsApi from '@/services/CMSApi';
 import translationApi from '@/services/TranslationApi';
 import { BREAKPOINTS } from '@/constants/breakpoints';
+import SEO from '@/components/SEO';
+import { WEBSITE } from '@/constants/website';
+import useUrl from '@/hooks/useUrl';
 
 type Props = {
   locale: Locales;
+  slug: string | undefined;
 } & GetPostsByTagQuery;
 
-const PostsByTagPage: React.VFC<Props> = ({ posts }) => {
+const PostsByTagPage: React.VFC<Props> = ({ posts, locale, slug }) => {
+  const url = useUrl();
+  const metaDescription = WEBSITE.TAGSPAGE[
+    locale.replace('-', '_').toUpperCase()
+  ].DESCRIPTION as string;
   return (
-    <div className={root}>
-      <ul className={listLayout}>
-        {posts.map((post) => {
-          return <PostListItem data={post} key={post.id} />;
-        })}
-      </ul>
-    </div>
+    <>
+      <SEO
+        title={`#${slug} - ${WEBSITE.NAME}`}
+        pageType={'blog'}
+        description={metaDescription}
+        locale={locale}
+        pageUrl={url}
+      />
+      <div className={root}>
+        <ul className={listLayout}>
+          {posts.map((post) => {
+            return <PostListItem data={post} key={post.id} />;
+          })}
+        </ul>
+      </div>
+    </>
   );
 };
 
@@ -66,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   return {
-    props: { locale, translations, posts },
+    props: { locale, translations, posts, slug },
   };
 };
 export default PostsByTagPage;
