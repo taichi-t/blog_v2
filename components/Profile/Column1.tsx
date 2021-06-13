@@ -8,6 +8,7 @@ const Column1 = () => {
     <div className={root}>
       <Image
         src="/images/me.jpg"
+        alt="me"
         width="200px"
         height="200px"
         loading="lazy"
