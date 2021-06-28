@@ -86,6 +86,7 @@ export const gfmMarkdownStyles = css`
 
   & > a {
     text-decoration: none;
+    word-break: normal;
   }
 
   & > a:hover {
