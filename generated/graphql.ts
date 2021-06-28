@@ -5146,6 +5146,10 @@ export type PostCountFieldsFragment = { __typename?: 'PostConnection' } & {
   aggregate: { __typename?: 'Aggregate' } & Pick<Aggregate, 'count'>;
 };
 
+export type CoverImageFieldsFragment = { __typename?: 'Post' } & {
+  coverImage?: Maybe<{ __typename?: 'Asset' } & Pick<Asset, 'url'>>;
+};
+
 export type GetIndexContentQueryVariables = Exact<{
   locales: Array<Locale> | Locale;
   orderBy: PostOrderByInput;
@@ -5173,7 +5177,8 @@ export type GetPostBySlugQuery = { __typename?: 'Query' } & {
   post?: Maybe<
     { __typename?: 'Post' } & {
       tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment>;
-    } & PostDetailsFieldsFragment
+    } & PostDetailsFieldsFragment &
+      CoverImageFieldsFragment
   >;
 };
 
@@ -5230,6 +5235,17 @@ export const PostCountFieldsFragmentDoc = gql`
     }
   }
 `;
+export const CoverImageFieldsFragmentDoc = gql`
+  fragment coverImageFields on Post {
+    coverImage(locales: en_US) {
+      url(
+        transformation: {
+          image: { resize: { height: 250, width: 250, fit: scale } }
+        }
+      )
+    }
+  }
+`;
 export const GetIndexContentDocument = gql`
   query GetIndexContent(
     $locales: [Locale!]!
@@ -5265,10 +5281,12 @@ export const GetPostBySlugDocument = gql`
       tags(orderBy: name_DESC) {
         ...tagFields
       }
+      ...coverImageFields
     }
   }
   ${PostDetailsFieldsFragmentDoc}
   ${TagFieldsFragmentDoc}
+  ${CoverImageFieldsFragmentDoc}
 `;
 export const GetPostsByTagDocument = gql`
   query GetPostsByTag(

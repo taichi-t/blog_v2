@@ -36,6 +36,16 @@ fragment postCountFields on PostConnection {
   }
 }
 
+fragment coverImageFields on Post {
+  coverImage(locales: en_US) {
+    url(
+      transformation: {
+        image: { resize: { height: 250, width: 250, fit: scale } }
+      }
+    )
+  }
+}
+
 query GetIndexContent(
   $locales: [Locale!]!
   $orderBy: PostOrderByInput!
@@ -67,6 +77,7 @@ query GetPostBySlug($slug: String!, $locales: [Locale!]!) {
     tags(orderBy: name_DESC) {
       ...tagFields
     }
+    ...coverImageFields
   }
 }
 
