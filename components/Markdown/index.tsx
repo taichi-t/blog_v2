@@ -15,7 +15,6 @@ export default MarkdownElements;
 export const gfmMarkdownStyles = css`
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  word-wrap: break-word;
   font-size: var(--font-size-md);
   line-height: 1.7;
 
