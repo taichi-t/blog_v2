@@ -21,7 +21,9 @@ const useRouteEventHandler = (): void => {
         NProgress.done();
         gtag.pageview(url);
       });
-      Router.events.off('routeChangeError', () => NProgress.done());
+      Router.events.off('routeChangeError', () => {
+        NProgress.done();
+      });
     };
   }, []);
 };

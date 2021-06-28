@@ -39,7 +39,7 @@ const CodeBlock: CodeComponent | ReactMarkdownNames = ({
       style={vscDarkPlus}
       children={String(children).replace(/\n$/, '')}
       {...props}
-      wrapLongLines={false}
+      wrapLines={true}
     />
   ) : (
     <code

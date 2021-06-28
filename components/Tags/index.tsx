@@ -5,23 +5,24 @@ import { TagFieldsFragment } from '@/generated/graphql';
 import Link from 'next/link';
 
 type Props = {
-  tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment>;
-};
+  tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment> | undefined;
+} & JSX.IntrinsicElements['ul'];
 
-const Tags: React.VFC<Props> = ({ tags }) => {
+const Tags: React.VFC<Props> = ({ tags, ...rest }) => {
   return (
-    <ul className={root}>
-      {tags.map((tag) => (
-        <li key={tag.id} className={tagStyle}>
-          <Link
-            href="/tags/[slug]"
-            as={`/tags/${tag.slug}`}
-            passHref
-            prefetch={false}>
-            <a>#{tag.name}</a>
-          </Link>
-        </li>
-      ))}
+    <ul className={root} {...rest}>
+      {tags &&
+        tags.map((tag) => (
+          <li key={tag.id} className={tagStyle}>
+            <Link
+              href="/tags/[slug]"
+              as={`/tags/${tag.slug}`}
+              passHref
+              prefetch={false}>
+              <a>#{tag.name}</a>
+            </Link>
+          </li>
+        ))}
     </ul>
   );
 };
