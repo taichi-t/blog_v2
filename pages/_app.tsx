@@ -86,6 +86,7 @@ export const global = css`
       --color-divider: #e6ecf0;
 
       /* font-size */
+      --font-size-xxl: 4rem;
       --font-size-xl: 3.2rem;
       --font-size-lg: 2.4rem;
       --font-size-md: 1.8rem;
@@ -154,7 +155,7 @@ export const global = css`
     body {
       font-size: var(--font-size-base);
       font-family: var(--font-family-body);
-      max-width: 980px;
+      max-width: 790px;
       padding: 0 1rem;
       margin: 0 auto;
     }

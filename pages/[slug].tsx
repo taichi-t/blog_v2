@@ -19,6 +19,9 @@ import translationApi from '@/services/TranslationApi';
 import useUrl from '@/hooks/useUrl';
 import { WEBSITE } from '@/constants/website';
 import SEO from '@/components/SEO';
+import { styled } from '@linaria/react';
+import Tags from '@/components/Tags';
+import { FormattedDate } from 'react-intl';
 
 type Props = {
   locale: string;
@@ -81,6 +84,34 @@ const PostPage: FC<Props> = ({ post, locale }) => {
         locale={locale}
         pageUrl={url}
       />
+
+      <Title
+        className={css`
+          margin-bottom: var(--spacing-size-xs);
+        `}>
+        {post?.title}
+      </Title>
+      <FormattedDate
+        value={post?.createdAt}
+        year="numeric"
+        month="short"
+        day="2-digit"
+        children={(text) => (
+          <CreatedAt
+            className={css`
+              margin-bottom: var(--spacing-size-xs);
+            `}>
+            {text}
+          </CreatedAt>
+        )}
+      />
+      <Tags
+        tags={post?.tags}
+        className={css`
+          margin-bottom: var(--spacing-size-base);
+        `}
+      />
+
       <article ref={markdownRef} className={markdownLayout}>
         <ReactMarkdown
           remarkPlugins={[gfm]}
@@ -156,4 +187,17 @@ const markdownLayout = css`
     margin-inline-end: 0px;
     padding-inline-start: 40px;
   }
+`;
+
+const Title = styled('h1')`
+  font-size: var(--font-size-xxl);
+  font-weight: bold;
+  ${BREAKPOINTS.MOBILE} {
+    font-size: 3.6rem;
+  }
+`;
+
+const CreatedAt = styled('p')`
+  color: var(--color-secondaryText);
+  font-size: var(--font-size-base);
 `;
