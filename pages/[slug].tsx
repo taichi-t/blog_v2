@@ -83,6 +83,7 @@ const PostPage: FC<Props> = ({ post, locale }) => {
         description={post?.excerpt ?? ''}
         locale={locale}
         pageUrl={url}
+        imageUrl={post?.coverImage?.url}
       />
 
       <Title
