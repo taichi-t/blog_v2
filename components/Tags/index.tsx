@@ -1,4 +1,4 @@
-import { css } from '@linaria/core';
+import { css, cx } from '@linaria/core';
 import * as React from 'react';
 
 import { TagFieldsFragment } from '@/generated/graphql';
@@ -8,9 +8,9 @@ type Props = {
   tags: Array<{ __typename?: 'Tag' } & TagFieldsFragment> | undefined;
 } & JSX.IntrinsicElements['ul'];
 
-const Tags: React.VFC<Props> = ({ tags, ...rest }) => {
+const Tags: React.VFC<Props> = ({ tags, className, ...rest }) => {
   return (
-    <ul className={root} {...rest}>
+    <ul className={cx(root, className)} {...rest}>
       {tags &&
         tags.map((tag) => (
           <li key={tag.id} className={tagStyle}>
