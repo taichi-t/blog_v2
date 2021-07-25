@@ -19,5 +19,10 @@ My personal blog site built with Next.js and TypeScript.
 ### CMS
 - GraphCMS
 
-# Refs
-- https://github.com/prisma-labs/graphql-request
+## Architecture
+<img width="50%" alt="Screen Shot 2021-07-24 at 19 12 32" src="https://user-images.githubusercontent.com/54035518/126886163-5f02c9ea-bded-496c-a607-414f1f2bdc37.png">
+
+## Features
+- Reduce critical rendering path by SSR
+- i18n
+- Dark Mode
