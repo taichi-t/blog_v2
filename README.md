@@ -1,8 +1,13 @@
 # Blog v2
 
-preact + next.js + Linaria + typescript
+My personal blog site built with Next.js and TypeScript.
 
-# File Structure
+<img width="100%" alt="Screen Shot 2021-07-24 at 19 12 32" src="https://user-images.githubusercontent.com/54035518/126885418-0769e1c0-6312-4f4c-bd9f-69660b5b203e.png">
+
+## Technologies
+
+
+## File Structure
 
 <pre>
 .
