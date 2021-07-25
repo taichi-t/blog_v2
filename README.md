@@ -26,3 +26,6 @@ My personal blog site built with Next.js and TypeScript.
 - Reduce critical rendering path by SSR
 - i18n
 - Dark Mode
+
+## Link
+- https://www.chotto.dev/
