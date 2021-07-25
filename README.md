@@ -6,33 +6,18 @@ My personal blog site built with Next.js and TypeScript.
 
 ## Technologies
 
+### Languege/Libraries
+- Next.js + Preact
+- TypeScript
+- Linaria
+- GraphQL
 
-## File Structure
+### Format/Lint tools
+- ESLint
+- Prettier
 
-<pre>
-.
-├── README.md
-├── adapters
-├── components
-├── constants
-├── helpers
-├── hooks
-├── next-env.d.ts
-├── next.config.js
-├── package.json
-├── pages
-│ ├── about.tsx
-│ ├── index.tsx
-│ ├── ssg.tsx
-│ └── ssr.tsx
-├── public
-├── services
-├── tsconfig.json
-├── usecases
-└── yarn.lock
-</pre>
+### CMS
+- GraphCMS
 
 # Refs
-
-- https://zenn.dev/catnose99/articles/bb943c3dc99d89
 - https://github.com/prisma-labs/graphql-request
